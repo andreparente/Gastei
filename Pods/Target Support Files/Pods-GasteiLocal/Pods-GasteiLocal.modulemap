@@ -1,0 +1,6 @@
+framework module Pods_GasteiLocal {
+  umbrella header "Pods-GasteiLocal-umbrella.h"
+
+  export *
+  module * { export * }
+}
