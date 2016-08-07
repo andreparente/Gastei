@@ -116,6 +116,9 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate{
                 // adiciona na RAM
                 userLogged.addCategoriaGasto(textField.text!)
                 
+                //adiciona no userDefaults
+                defaults.setObject(userLogged.categories, forKey: "categories")
+                
                 // adiciona no cloud
                 dispatch_async(dispatch_get_main_queue(),{
                     

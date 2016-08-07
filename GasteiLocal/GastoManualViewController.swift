@@ -173,19 +173,24 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
     
     @IBAction func datePickerChanged(sender: AnyObject) {
         dataNs = datePicker.date
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
         dataQR = dateFormatter.stringFromDate(dataNs)
-        let dataaux = dataQR.stringByReplacingOccurrencesOfString("/", withString: "/")
-        let fullNameArr = dataaux.componentsSeparatedByString("/")
-        var preferredLanguage = NSLocale.preferredLanguages()[0] as String
-        var stringfinal = String()
+       // let dataaux = dataQR.stringByReplacingOccurrencesOfString("/", withString: "/")
+//        let fullNameArr = dataQR.componentsSeparatedByString("/")
+//        var preferredLanguage = NSLocale.preferredLanguages()[0] as String
+        print(datePicker.date)
+        print(dataQR)
+        dataStr = dataQR
+       /* var stringfinal = String()
         if preferredLanguage == "pt-BR"
         {
-            stringfinal = "20" + fullNameArr[0] + "/" + fullNameArr [1] + "/" + fullNameArr[2]
+            stringfinal =  fullNameArr[0] + "/" + fullNameArr [1] + "/" + fullNameArr[2]
         }
         else{
-            stringfinal = "20" + fullNameArr[1] + "/" + fullNameArr [0] + "/" + fullNameArr[2]
+            stringfinal = fullNameArr[1] + "/" + fullNameArr [0] + "/" + "20" + fullNameArr[2]
         }
-        dataStr = stringfinal
+        dataStr = stringfinal*/
     }
     
     @IBAction func novacategoria(sender: UIButton) {
@@ -209,6 +214,9 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
             {
                 // adiciona na RAM
                 userLogged.addCategoriaGasto(textField.text!)
+                
+                //adiciona no NSUserDefaults
+                defaults.setObject(userLogged.categories, forKey: "categories")
                 
                 // adiciona no cloud
                 dispatch_async(dispatch_get_main_queue(),{
@@ -260,8 +268,8 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
         } else {
             
             if(nome == nil || nome!.isEmpty) {
-                nome = "Gasto do dia \(dataStr)"
-                nomeGasto.text = "Gasto do dia \(dataStr)"
+                nome = ""
+                nomeGasto.text = ""
             }
             for val in 0...j - 1
             {
@@ -275,6 +283,7 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
             dateFormatter.dateFormat = "dd/MM/yyyy"
             print(self.dataStr)
             let data = dateFormatter.dateFromString(self.dataStr)
+            print( "data a ser adicionada!! :::::::::  ",data )
             let gasto = Gasto(nome: nome!, categoria: self.categoria, valor: valorgasto!, data: data!)
             print(gasto.date)
             //     DAOCloudKit().addGasto(gasto,user: userLogged)

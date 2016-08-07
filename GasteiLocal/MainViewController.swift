@@ -49,6 +49,17 @@ class MainViewController: UIViewController,WCSessionDelegate {
         //background_image.hidden = true
         self.tabBarController?.tabBar.hidden = true
         userLogged = User(cloudId: "noCloud")
+        
+        
+        if defaults.objectForKey("categories") == nil {
+            
+            //SETANDO PELA PRIMEIRA VEZ AS CATEGORIAS
+            defaults.setObject(userLogged.categories, forKey: "categories")
+
+        } else {
+            userLogged.categories = defaults.objectForKey("categories") as! [String]!
+        }
+        
         if defaults.boolForKey("Cloud") {
             
      //       DAOCloudKit().fetchCategoriesForUser(userLogged)
@@ -153,8 +164,21 @@ class MainViewController: UIViewController,WCSessionDelegate {
   
         let calendar = NSCalendar.currentCalendar()
         
-        let oneMonthAgo = calendar.dateByAddingUnit(.Month, value: -2, toDate: NSDate(), options: [])
-        DAOLocal().loadGastosEspecifico(oneMonthAgo!, toDate: NSDate())
+        let twoMonthsAgo = calendar.dateByAddingUnit(.Month, value: -2, toDate: NSDate(), options: [])
+        
+        //PARA PEGAR O PRIMEIRO E ULTIMO DIA DO MES
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        let components = calendar.components([.Year, .Month], fromDate: NSDate())
+        let startOfMonth = calendar.dateFromComponents(components)!
+        print(dateFormatter.stringFromDate(startOfMonth))
+        let comps2 = NSDateComponents()
+        comps2.month = 1
+        comps2.day = -1
+        let endOfMonth = calendar.dateByAddingComponents(comps2, toDate: startOfMonth, options: [])!
+        print(dateFormatter.stringFromDate(endOfMonth))
+        
+        DAOLocal().loadGastosEspecifico(twoMonthsAgo!, toDate: endOfMonth)
         userLogged.gastos.removeAll()
         userLogged.gastos = gastosGlobal
         let quickSorter = QuickSorterGasto()
@@ -326,6 +350,7 @@ class MainViewController: UIViewController,WCSessionDelegate {
         userLogged.arrayGastos = quickSorter.a
         userLogged.gastos = gastosGlobal
         var i = 0
+        
         for gasto in gastosGlobal {
             print(gasto.name)
             print(userLogged.gastos[i].name)
