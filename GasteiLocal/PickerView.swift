@@ -118,6 +118,8 @@ class MonthYearPickerView: UIPickerView, UIPickerViewDelegate, UIPickerViewDataS
         self.year = year
         let mes :Int =  month
         let ano :Int = year
+        DAOLocal().loadGastos()
+        userLogged.gastos = gastosGlobal
         vetorGastosMes = userLogged.getGastosMes(mes, ano: ano)
         (vetorFinalGastosMes,vetorFinalCatMes) = GraficoViewController().organizaVetoresMes(userLogged, gastosMes: vetorGastosMes)
         

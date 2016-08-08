@@ -30,7 +30,7 @@ class LoginCLoudViewController: UIViewController {
     
     
     @IBAction func loginActino(sender: AnyObject) {
-        
+        defaults.setBool(true, forKey: "Logged")
     }
     
     func actonNotificationSucessGetID()
@@ -49,6 +49,7 @@ class LoginCLoudViewController: UIViewController {
      */
     @IBAction func pularLoginAction(sender: UIButton) {
         defaults.setBool(false, forKey: "Cloud")
+        defaults.setBool(true, forKey: "Logged")
         self.performSegueWithIdentifier("LoginCloudToMain", sender: self)
     }
     

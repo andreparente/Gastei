@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WCSessionDelegate {
     var session: WCSession!
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-
+        
         let notificationSettings = UIUserNotificationSettings(forTypes:
             UIUserNotificationType.Alert, categories: nil)
         application.registerUserNotificationSettings(notificationSettings)
@@ -35,25 +35,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WCSessionDelegate {
         }
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         if defaults.objectForKey("cloudId") != nil {
-        
-                userLogged = User(cloudId: defaults.objectForKey("cloudId") as! String)
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let initialViewController = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
-                self.window?.rootViewController = initialViewController
-                self.window?.makeKeyAndVisible()
+            
+            userLogged = User(cloudId: defaults.objectForKey("cloudId") as! String)
+            let initialViewController = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
             
         }
             
         else {
+            if defaults.boolForKey("Logged") {
+                let initialViewController = storyboard.instantiateViewControllerWithIdentifier("MainTabBarController") as! UITabBarController
+                self.window?.rootViewController = initialViewController
+                self.window?.makeKeyAndVisible()
+            } else {
+                let initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginViewController")
+                self.window?.rootViewController = initialViewController
+                self.window?.makeKeyAndVisible()
+            }
             
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let initialViewController = storyboard.instantiateViewControllerWithIdentifier("LoginViewController") 
-            self.window?.rootViewController = initialViewController
-            self.window?.makeKeyAndVisible()
         }
-
+        
+       
         return true
     }
     
@@ -142,6 +148,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WCSessionDelegate {
             }
         }
     }
-
+    
 }
 
