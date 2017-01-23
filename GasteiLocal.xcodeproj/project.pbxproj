@@ -19,7 +19,6 @@
 		8AF5E41C1D5125B0006D16A7 /* GastoManualViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E4041D5125B0006D16A7 /* GastoManualViewController.swift */; };
 		8AF5E41D1D5125B0006D16A7 /* GraficoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E4051D5125B0006D16A7 /* GraficoViewController.swift */; };
 		8AF5E41E1D5125B0006D16A7 /* HistoricoTabelaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E4061D5125B0006D16A7 /* HistoricoTabelaViewController.swift */; };
-		8AF5E41F1D5125B0006D16A7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8AF5E4071D5125B0006D16A7 /* Info.plist */; };
 		8AF5E4201D5125B0006D16A7 /* LoginCLoudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E4081D5125B0006D16A7 /* LoginCLoudViewController.swift */; };
 		8AF5E4211D5125B0006D16A7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E4091D5125B0006D16A7 /* MainViewController.swift */; };
 		8AF5E4221D5125B0006D16A7 /* OrdenarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E40A1D5125B0006D16A7 /* OrdenarViewController.swift */; };
@@ -35,13 +34,9 @@
 		8AF5E42C1D5125B0006D16A7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E4141D5125B0006D16A7 /* User.swift */; };
 		8AF5E4331D5127D4006D16A7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E4311D5127D4006D16A7 /* Model.xcdatamodeld */; };
 		8AF5E4351D51307A006D16A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AF5E4341D51307A006D16A7 /* Assets.xcassets */; };
-		B23FFB2C5C8B611CBA6276DF /* Pods_GasteiLocal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 051E0C482CC9975751CCAEEC /* Pods_GasteiLocal.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		051E0C482CC9975751CCAEEC /* Pods_GasteiLocal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GasteiLocal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		490CBF31982C154836DA19EF /* Pods-GasteiLocal.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GasteiLocal.release.xcconfig"; path = "Pods/Target Support Files/Pods-GasteiLocal/Pods-GasteiLocal.release.xcconfig"; sourceTree = "<group>"; };
-		84FF91CEBB17C5720CEC33F5 /* Pods-GasteiLocal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GasteiLocal.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GasteiLocal/Pods-GasteiLocal.debug.xcconfig"; sourceTree = "<group>"; };
 		8AF5E3E01D5124CF006D16A7 /* GasteiLocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GasteiLocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF5E3F81D512556006D16A7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ../LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8AF5E3F91D512556006D16A7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../Main.storyboard; sourceTree = "<group>"; };
@@ -79,19 +74,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B23FFB2C5C8B611CBA6276DF /* Pods_GasteiLocal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2F0D6679D42D186A7D791B23 /* Frameworks */ = {
+		491EC749DC4D43D2F2E43D63 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				051E0C482CC9975751CCAEEC /* Pods_GasteiLocal.framework */,
 			);
-			name = Frameworks;
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8AEE93651E36596100C99D24 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8AF5E42D1D5125C1006D16A7 /* Storyboards */,
+			);
+			name = View;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		8AF5E3D71D5124CF006D16A7 = {
@@ -99,8 +101,8 @@
 			children = (
 				8AF5E3E21D5124CF006D16A7 /* GasteiLocal */,
 				8AF5E3E11D5124CF006D16A7 /* Products */,
-				BF228D0C195A408959D2F3DB /* Pods */,
-				2F0D6679D42D186A7D791B23 /* Frameworks */,
+				491EC749DC4D43D2F2E43D63 /* Pods */,
+				A8DBDF5A59048CDFED527279 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,10 +117,9 @@
 		8AF5E3E21D5124CF006D16A7 /* GasteiLocal */ = {
 			isa = PBXGroup;
 			children = (
-				8AF5E4301D512619006D16A7 /* Data */,
-				8AF5E42F1D5125F5006D16A7 /* Models */,
-				8AF5E42E1D5125D3006D16A7 /* Controllers */,
-				8AF5E42D1D5125C1006D16A7 /* Storyboards */,
+				8AF5E42F1D5125F5006D16A7 /* Model */,
+				8AEE93651E36596100C99D24 /* View */,
+				8AF5E42E1D5125D3006D16A7 /* Controller */,
 			);
 			path = GasteiLocal;
 			sourceTree = "<group>";
@@ -130,9 +131,10 @@
 				8AF5E3F91D512556006D16A7 /* Main.storyboard */,
 			);
 			name = Storyboards;
+			path = GasteiLocal;
 			sourceTree = "<group>";
 		};
-		8AF5E42E1D5125D3006D16A7 /* Controllers */ = {
+		8AF5E42E1D5125D3006D16A7 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				8AF5E4011D5125B0006D16A7 /* FiltrarViewController.swift */,
@@ -145,12 +147,13 @@
 				8AF5E40C1D5125B0006D16A7 /* QRCodeViewController.swift */,
 				8AF5E40E1D5125B0006D16A7 /* SettingsViewController.swift */,
 			);
-			name = Controllers;
+			name = Controller;
 			sourceTree = "<group>";
 		};
-		8AF5E42F1D5125F5006D16A7 /* Models */ = {
+		8AF5E42F1D5125F5006D16A7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8AF5E4301D512619006D16A7 /* Data */,
 				8AF5E3FE1D5125B0006D16A7 /* Classes.swift */,
 				8AF5E4001D5125B0006D16A7 /* extensions.swift */,
 				8AF5E4021D5125B0006D16A7 /* Filtros.swift */,
@@ -160,7 +163,7 @@
 				8AF5E4101D5125B0006D16A7 /* TableViewCell.swift */,
 				8AF5E4141D5125B0006D16A7 /* User.swift */,
 			);
-			name = Models;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		8AF5E4301D512619006D16A7 /* Data */ = {
@@ -180,13 +183,11 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
-		BF228D0C195A408959D2F3DB /* Pods */ = {
+		A8DBDF5A59048CDFED527279 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				84FF91CEBB17C5720CEC33F5 /* Pods-GasteiLocal.debug.xcconfig */,
-				490CBF31982C154836DA19EF /* Pods-GasteiLocal.release.xcconfig */,
 			);
-			name = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,12 +197,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8AF5E3F51D5124CF006D16A7 /* Build configuration list for PBXNativeTarget "GasteiLocal" */;
 			buildPhases = (
-				0517FFB373A49515808C24F7 /* Check Pods Manifest.lock */,
 				8AF5E3DC1D5124CF006D16A7 /* Sources */,
 				8AF5E3DD1D5124CF006D16A7 /* Frameworks */,
 				8AF5E3DE1D5124CF006D16A7 /* Resources */,
-				43BEC93514A5CF646BACE514 /* Embed Pods Frameworks */,
-				FE9E6A74A115DF255BC528EE /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -219,7 +217,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Andre Machado Parente";
 				TargetAttributes = {
 					8AF5E3DF1D5124CF006D16A7 = {
@@ -257,59 +255,10 @@
 				8AF5E3FA1D512556006D16A7 /* LaunchScreen.storyboard in Resources */,
 				8AF5E4351D51307A006D16A7 /* Assets.xcassets in Resources */,
 				8AF5E3FB1D512556006D16A7 /* Main.storyboard in Resources */,
-				8AF5E41F1D5125B0006D16A7 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		0517FFB373A49515808C24F7 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		43BEC93514A5CF646BACE514 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GasteiLocal/Pods-GasteiLocal-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FE9E6A74A115DF255BC528EE /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GasteiLocal/Pods-GasteiLocal-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8AF5E3DC1D5124CF006D16A7 /* Sources */ = {
@@ -357,8 +306,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -402,8 +353,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -422,14 +375,15 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		8AF5E3F61D5124CF006D16A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 84FF91CEBB17C5720CEC33F5 /* Pods-GasteiLocal.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GasteiLocal/Info.plist;
@@ -444,12 +398,13 @@
 		};
 		8AF5E3F71D5124CF006D16A7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 490CBF31982C154836DA19EF /* Pods-GasteiLocal.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GasteiLocal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andremachadoparente.GasteiLocal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GasteiLocal/GasteiLocal-Bridging-Header.h";
