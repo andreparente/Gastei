@@ -179,8 +179,8 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
         else {
             //NO DATA TEXT OCORRE QUANDO NAO TEM DADOS NO GRAFICO
             chartView.noDataText = "Você não possui nenhum gasto!"
-            chartView.infoTextColor = UIColor.white
-            chartView.infoFont = UIFont(name: "Tsukushi A Round Gothic", size: 16)
+           // chartView.infoTextColor = UIColor.white
+           // chartView.infoFont = UIFont(name: "Tsukushi A Round Gothic", size: 16)
             chartView.delegate = self
             chartView.animate(xAxisDuration: 1)
             totalLabel.isHidden = true
@@ -199,15 +199,15 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
             
             
             var dataEntries: [ChartDataEntry] = []
-            chartView.descriptionText = ""
+           // chartView.descriptionText = ""
             //ESSE FOR PREENCHE O VETOR DE ENTRADA DE DADOS, PRA CADA INDEX,
             for i in 0..<values.count {
-                let dataEntry = ChartDataEntry(value: values[i].roundToPlaces(2), xIndex: i)
+                let dataEntry = ChartDataEntry(x: values[i].roundToPlaces(2), y: Double(i))
                 dataEntries.append(dataEntry)
             }
             
             //ISSO EU NAO ENTENDI MUITO BEM MAS FUNCIONA
-            let chartDataSet = PieChartDataSet(yVals: dataEntries, label: "")
+           let chartDataSet = PieChartDataSet(values: dataEntries, label: "")
             
             var r, g, b: CGFloat!
             
@@ -230,8 +230,8 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
                 chartDataSet.colors.append(NSUIColor(red: r/255, green: g/255, blue: b/255, alpha: 1))
             }
             
-            let chartData = PieChartData(xVals: dataPoints, dataSet: chartDataSet)
-            chartView.data = chartData
+         //   let chartData = PieChartData(xVals: dataPoints, dataSet: chartDataSet)
+         //   chartView.data = chartData
             totalLabel.text = "Total desse mês: R$ "+String(total)
             totalLabel.isHidden = false
         }
@@ -240,8 +240,8 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
     }
     
     // FUNCAO CHAMADA QUANDO CLICAMOS EM CIMA DE UM PEDACO DA PIZZA
-    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {
-        print("\(entry.value) in \(userLogged.categories[entry.xIndex])")
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: Highlight) {
+ //       print("\(entry.value) in \(userLogged.categories[entry.index])")
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -267,8 +267,8 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
             chartView.clear()
             
             chartView.noDataText = "Você não possui nenhum gasto!"
-            chartView.infoTextColor = UIColor.white
-            chartView.infoFont = UIFont(name: "Tsukushi A Round Gothic", size: 16)
+       //     chartView.infoTextColor = UIColor.white
+         //   chartView.infoFont = UIFont(name: "Tsukushi A Round Gothic", size: 16)
             chartView.delegate = self
             chartView.animate(xAxisDuration: 1)
             totalLabel.isHidden = true

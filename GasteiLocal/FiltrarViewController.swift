@@ -66,7 +66,7 @@ class FiltrarViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         // altera o dia pra 1
         components.day = 1
         // pega a data gerada com dia 1
-        let primeiroDiaMes = Date().createFromDate(components.day, mes: components.month, ano: components.year)
+        let primeiroDiaMes = Date().createFromDate(components.day!, mes: components.month!, ano: components.year!)
         // altera o pickerDate minimo
         self.pickerDataMin.setDate(primeiroDiaMes, animated: false)
         

@@ -34,7 +34,54 @@
 		8AF5E42C1D5125B0006D16A7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E4141D5125B0006D16A7 /* User.swift */; };
 		8AF5E4331D5127D4006D16A7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E4311D5127D4006D16A7 /* Model.xcdatamodeld */; };
 		8AF5E4351D51307A006D16A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AF5E4341D51307A006D16A7 /* Assets.xcassets */; };
+		9C1FE1141E365A8100EAC72F /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1FE10F1E365A6300EAC72F /* Charts.framework */; };
+		9C1FE1151E365A8100EAC72F /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1FE10F1E365A6300EAC72F /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9C1FE10E1E365A6300EAC72F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C1FE1081E365A6300EAC72F /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06165F241D8110E600722320;
+			remoteInfo = Charts;
+		};
+		9C1FE1101E365A6300EAC72F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C1FE1081E365A6300EAC72F /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06B120D51D811E6200D14B02;
+			remoteInfo = ChartsRealm;
+		};
+		9C1FE1121E365A6300EAC72F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C1FE1081E365A6300EAC72F /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06165F2E1D8110E600722320;
+			remoteInfo = ChartsTests;
+		};
+		9C1FE1161E365A8100EAC72F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9C1FE1081E365A6300EAC72F /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 06165F231D8110E600722320;
+			remoteInfo = Charts;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9C1FE1181E365A8100EAC72F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9C1FE1151E365A8100EAC72F /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8AF5E3E01D5124CF006D16A7 /* GasteiLocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GasteiLocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +114,7 @@
 		8AF5E4141D5125B0006D16A7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8AF5E4321D5127D4006D16A7 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		8AF5E4341D51307A006D16A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9C1FE1081E365A6300EAC72F /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../Downloads/Charts-master-4/Charts.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C1FE1141E365A8100EAC72F /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,9 +232,20 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
+		9C1FE1091E365A6300EAC72F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9C1FE10F1E365A6300EAC72F /* Charts.framework */,
+				9C1FE1111E365A6300EAC72F /* ChartsRealm.framework */,
+				9C1FE1131E365A6300EAC72F /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		A8DBDF5A59048CDFED527279 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9C1FE1081E365A6300EAC72F /* Charts.xcodeproj */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -200,10 +260,12 @@
 				8AF5E3DC1D5124CF006D16A7 /* Sources */,
 				8AF5E3DD1D5124CF006D16A7 /* Frameworks */,
 				8AF5E3DE1D5124CF006D16A7 /* Resources */,
+				9C1FE1181E365A8100EAC72F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9C1FE1171E365A8100EAC72F /* PBXTargetDependency */,
 			);
 			name = GasteiLocal;
 			productName = GasteiLocal;
@@ -237,12 +299,42 @@
 			mainGroup = 8AF5E3D71D5124CF006D16A7;
 			productRefGroup = 8AF5E3E11D5124CF006D16A7 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9C1FE1091E365A6300EAC72F /* Products */;
+					ProjectRef = 9C1FE1081E365A6300EAC72F /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8AF5E3DF1D5124CF006D16A7 /* GasteiLocal */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9C1FE10F1E365A6300EAC72F /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = 9C1FE10E1E365A6300EAC72F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9C1FE1111E365A6300EAC72F /* ChartsRealm.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ChartsRealm.framework;
+			remoteRef = 9C1FE1101E365A6300EAC72F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9C1FE1131E365A6300EAC72F /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = 9C1FE1121E365A6300EAC72F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8AF5E3DE1D5124CF006D16A7 /* Resources */ = {
@@ -290,6 +382,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9C1FE1171E365A8100EAC72F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = 9C1FE1161E365A8100EAC72F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8AF5E3F31D5124CF006D16A7 /* Debug */ = {

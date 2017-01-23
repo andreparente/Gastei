@@ -12,7 +12,7 @@ import WatchConnectivity
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,WCSessionDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var session: WCSession!
@@ -22,18 +22,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WCSessionDelegate {
         let notificationSettings = UIUserNotificationSettings(types:
             UIUserNotificationType.alert, categories: nil)
         application.registerUserNotificationSettings(notificationSettings)
-        session = WCSession.default()
+     /*   session = WCSession.default()
         session.delegate = self
         
         if WCSession.isSupported() {
             session.activate()
-        }
+       }
         let transfers = session.outstandingUserInfoTransfers
         if transfers.count > 0 {
             let transfer = transfers.first!
             transfer.cancel()
         }
-        
+       */
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         

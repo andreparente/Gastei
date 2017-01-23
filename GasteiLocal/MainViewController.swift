@@ -10,7 +10,8 @@ import UIKit
 var executar = false
 import WatchConnectivity
 
-class MainViewController: UIViewController,WCSessionDelegate {
+class MainViewController: UIViewController {
+   
     
     @IBOutlet weak var settingsbutton: UIButton!
     @IBOutlet weak var gastei: UIButton!
@@ -191,7 +192,7 @@ class MainViewController: UIViewController,WCSessionDelegate {
         var i = 0
         
         for gasto in gastosGlobal {
-            print(gasto.name)
+            print(gasto.name!)
            // print(userLogged.gastos[i].name)
             i += 1
         }
@@ -320,7 +321,7 @@ class MainViewController: UIViewController,WCSessionDelegate {
              WCSession.defaultSession().transferUserInfo(item)
              */
             
-            
+         /*
             if (WCSession.isSupported()) {
                 let session = WCSession.default()
                 session.delegate = self
@@ -332,10 +333,10 @@ class MainViewController: UIViewController,WCSessionDelegate {
                 print("Nao está conectado ao watch")
             }
         }
-
+     */
         
     }
-
+    }
     
     func setView() {
         executar = false
@@ -352,8 +353,8 @@ class MainViewController: UIViewController,WCSessionDelegate {
         var i = 0
         
         for gasto in gastosGlobal {
-            print(gasto.name)
-            print(userLogged.gastos[i].name)
+            print(gasto.name!)
+            print(userLogged.gastos[i].name!)
             i += 1
         }
         
@@ -482,7 +483,7 @@ class MainViewController: UIViewController,WCSessionDelegate {
              */
             
             
-            if (WCSession.isSupported()) {
+       /*     if (WCSession.isSupported()) {
                 let session = WCSession.default()
                 session.delegate = self
                 session.activate()
@@ -492,6 +493,8 @@ class MainViewController: UIViewController,WCSessionDelegate {
             {
                 print("Nao está conectado ao watch")
             }
+ */
         }
+
     }
 }

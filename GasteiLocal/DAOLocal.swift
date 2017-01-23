@@ -68,7 +68,7 @@ open class DAOLocal {
     
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        var request = NSFetchRequest<NSFetchRequestResult>(entityName: "Gasto")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Gasto")
         request.returnsObjectsAsFaults = false
 //        let dateFormatter = NSDateFormatter()
 //        dateFormatter.dateFormat = "dd/MM/yyyy"
@@ -103,7 +103,7 @@ open class DAOLocal {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        var request = NSFetchRequest<NSFetchRequestResult>(entityName: "Gasto")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Gasto")
         request.returnsObjectsAsFaults = false
         
         let fromDate = "2016-"+month+"-01"
@@ -152,7 +152,7 @@ open class DAOLocal {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        var request = NSFetchRequest<NSFetchRequestResult>(entityName: "Gasto")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Gasto")
         request.returnsObjectsAsFaults = false
         request.predicate = NSPredicate(format: "(date >= %@) AND (date <= %@)", fromDate as CVarArg, toDate as CVarArg)
         
@@ -180,7 +180,7 @@ open class DAOLocal {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
-        var request = NSFetchRequest<NSFetchRequestResult>(entityName: "Gasto")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Gasto")
         request.returnsObjectsAsFaults = false
         
         if category == "Todas" {

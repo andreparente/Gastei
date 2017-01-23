@@ -9,7 +9,7 @@
 import UIKit
 import WatchConnectivity
 import WatchKit
-class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate,UINavigationBarDelegate,WCSessionDelegate {
+class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate,UINavigationBarDelegate {
     
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var valor: UITextField!
@@ -283,12 +283,21 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
             dateFormatter.dateFormat = "dd/MM/yyyy"
             print(self.dataStr)
             let data = dateFormatter.date(from: self.dataStr)
-            print( "data a ser adicionada!! :::::::::  ",data )
-            let gasto = Gasto(nome: nome!, categoria: self.categoria, valor: valorgasto!, data: data!)
-            print(gasto.date)
+           // print( "data a ser adicionada!! :::::::::  ",data! )
+            var gasto : Gasto? = nil
+            if let datafinal = data
+            {
+            gasto = Gasto(nome: nome!, categoria: self.categoria, valor: valorgasto!, data: datafinal)
+            print(gasto?.date)
+            }
+            else
+            {
+                gasto = Gasto(nome: nome!, categoria: self.categoria, valor: valorgasto!, data: NSDate() as Date)
+                print(gasto?.date)
+            }
             //     DAOCloudKit().addGasto(gasto,user: userLogged)
             
-            DAOLocal().salvarGasto(gasto)
+            DAOLocal().salvarGasto(gasto!)
             dismiss(animated: true, completion: nil)
             // faz o segue
             var arrayCategories = [String]()
@@ -300,7 +309,7 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
                 arrayValor.append(String(userLogged.getGastosHoje()[i].value))
                 i+=1
             }
-            if (WCSession.isSupported()) {
+           /* if (WCSession.isSupported()) {
                 let session = WCSession.default()
                 session.delegate = self
                 session.activate()
@@ -310,6 +319,7 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
             {
                 print("Nao está conectado ao watch")
             }
+ */
             /*  let complicationServer = CLKComplicationServer.sharedInstance()
              for complication in complicationServer.activeComplications {
              complicationServer.reloadTimelineForComplication(complication)
