@@ -7,9 +7,33 @@
 //
 
 import Foundation
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 // filtra o vetor de gastos pelo intervalo de valores
-public func filtraValor(min: Double, max: Double, gastos: [Gasto]) -> [Gasto] {
+public func filtraValor(_ min: Double, max: Double, gastos: [Gasto]) -> [Gasto] {
     // gera o novo vetor
     var gastosFiltrados: [Gasto] = []
     for gasto in gastos {
@@ -22,7 +46,7 @@ public func filtraValor(min: Double, max: Double, gastos: [Gasto]) -> [Gasto] {
 }
 
 // filtra o vetor de gastos pelo valor minimo
-public func filtraValorMin(min: Double, gastos: [Gasto]) -> [Gasto] {
+public func filtraValorMin(_ min: Double, gastos: [Gasto]) -> [Gasto] {
     // gera o novo vetor
     var gastosFiltrados: [Gasto] = []
     for gasto in gastos {
@@ -35,7 +59,7 @@ public func filtraValorMin(min: Double, gastos: [Gasto]) -> [Gasto] {
 }
 
 // filtra o vetor de gastos pelo valor maximo
-public func filtraValorMax(max: Double, gastos: [Gasto]) -> [Gasto] {
+public func filtraValorMax(_ max: Double, gastos: [Gasto]) -> [Gasto] {
     // gera o novo vetor
     var gastosFiltrados: [Gasto] = []
     for gasto in gastos {
@@ -48,7 +72,7 @@ public func filtraValorMax(max: Double, gastos: [Gasto]) -> [Gasto] {
 }
 
 // filtra o vetor de gastos pela categoria
-public func filtraCategoria(categoriaFiltro: String, gastos: [Gasto]) -> [Gasto] {
+public func filtraCategoria(_ categoriaFiltro: String, gastos: [Gasto]) -> [Gasto] {
     // gera o novo vetor
     var gastosFiltrados: [Gasto] = []
     for gasto in gastos {
@@ -60,14 +84,14 @@ public func filtraCategoria(categoriaFiltro: String, gastos: [Gasto]) -> [Gasto]
     return gastosFiltrados
 }
 
-public func comparadata(data1: NSDate, date2: NSDate) ->(Int)
+public func comparadata(_ data1: Date, date2: Date) ->(Int)
 {
     //data1.changeDaysBy(-1)
-    if data1.compare(date2) == NSComparisonResult.OrderedDescending
+    if data1.compare(date2) == ComparisonResult.orderedDescending
     {
         //NSLog("date1 after date2");
         return 1
-    } else if data1.compare(date2) == NSComparisonResult.OrderedAscending
+    } else if data1.compare(date2) == ComparisonResult.orderedAscending
     {
         //NSLog("date1 before date2");
         return -1
@@ -78,15 +102,15 @@ public func comparadata(data1: NSDate, date2: NSDate) ->(Int)
     }
 }
 
-public func filtroData(inicio:NSDate, fim:NSDate, gastos:[Gasto]) ->([Gasto])
+public func filtroData(_ inicio:Date, fim:Date, gastos:[Gasto]) ->([Gasto])
 {
     var gastosFiltrados: [Gasto] = []
-    let dateFormatter = NSDateFormatter()
+    let dateFormatter = DateFormatter()
     
     // eh necessario zerar a hora, os minutos e os segundos antes de comecar
-    let cal: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-    let inicio_ = cal.dateBySettingHour(0, minute: 0, second: 0, ofDate: inicio, options: NSCalendarOptions())!
-    let fim_ = cal.dateBySettingHour(0, minute: 0, second: 0, ofDate: fim, options: NSCalendarOptions())!
+    let cal: Calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+    let inicio_ = (cal as NSCalendar).date(bySettingHour: 0, minute: 0, second: 0, of: inicio, options: NSCalendar.Options())!
+    let fim_ = (cal as NSCalendar).date(bySettingHour: 0, minute: 0, second: 0, of: fim, options: NSCalendar.Options())!
     
     dateFormatter.dateFormat = "dd/MM/yyyy"
     for i in 0..<gastos.count {
@@ -105,40 +129,40 @@ public func filtroData(inicio:NSDate, fim:NSDate, gastos:[Gasto]) ->([Gasto])
 }
 
 // passando zero retorna os gastos de hoje
-func filtraUltimosDias(dias: Int,gastos:[Gasto]) ->([Gasto]) {
+func filtraUltimosDias(_ dias: Int,gastos:[Gasto]) ->([Gasto]) {
     // descobre ano, mes e dia atuais
-    let hoje = NSDate()
-    let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: hoje)
+    let hoje = Date()
+    let components = (Calendar.current as NSCalendar).components([.day, .month, .year], from: hoje)
     let mesAtual = components.month
     let anoAtual = components.year
     let diaAtual = components.day
     
     // gera o novo vetor
     var gastosUltimosDias: [Gasto] = []
-    let dateFormatter = NSDateFormatter()
+    let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "dd/MM/yyyy"
     
     for gasto in gastos {
         
-        let data = dateFormatter.stringFromDate(gasto.date).componentsSeparatedByString("/")
+        let data = dateFormatter.string(from: gasto.date as Date).components(separatedBy: "/")
         // data == [ano, mes, dia]
         let dia = Int(data[0])
         let mes = Int(data[1])
         let ano = Int(data[2])
-        if (mes == mesAtual && ano == anoAtual && dia >= (diaAtual - dias)) {
+        if (mes! == mesAtual! && ano! == anoAtual! && dia! >= (diaAtual! - dias)) {
             gastosUltimosDias.append(gasto)
         }
     }
     return gastosUltimosDias
 }
 
-extension NSDate {
-    func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
+extension Date {
+    func isGreaterThanDate(_ dateToCompare: Date) -> Bool {
         //Declare Variables
         var isGreater = false
         
         //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedDescending {
+        if self.compare(dateToCompare) == ComparisonResult.orderedDescending {
             isGreater = true
         }
         
@@ -146,12 +170,12 @@ extension NSDate {
         return isGreater
     }
     
-    func isLessThanDate(dateToCompare: NSDate) -> Bool {
+    func isLessThanDate(_ dateToCompare: Date) -> Bool {
         //Declare Variables
         var isLess = false
         
         //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedAscending {
+        if self.compare(dateToCompare) == ComparisonResult.orderedAscending {
             isLess = true
         }
         
@@ -159,12 +183,12 @@ extension NSDate {
         return isLess
     }
     
-    func equalToDate(dateToCompare: NSDate) -> Bool {
+    func equalToDate(_ dateToCompare: Date) -> Bool {
         //Declare Variables
         var isEqualTo = false
         
         //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedSame {
+        if self.compare(dateToCompare) == ComparisonResult.orderedSame {
             isEqualTo = true
         }
         
@@ -172,17 +196,17 @@ extension NSDate {
         return isEqualTo
     }
     
-    func addDays(daysToAdd: Int) -> NSDate {
-        let secondsInDays: NSTimeInterval = Double(daysToAdd) * 60 * 60 * 24
-        let dateWithDaysAdded: NSDate = self.dateByAddingTimeInterval(secondsInDays)
+    func addDays(_ daysToAdd: Int) -> Date {
+        let secondsInDays: TimeInterval = Double(daysToAdd) * 60 * 60 * 24
+        let dateWithDaysAdded: Date = self.addingTimeInterval(secondsInDays)
         
         //Return Result
         return dateWithDaysAdded
     }
     
-    func addHours(hoursToAdd: Int) -> NSDate {
-        let secondsInHours: NSTimeInterval = Double(hoursToAdd) * 60 * 60
-        let dateWithHoursAdded: NSDate = self.dateByAddingTimeInterval(secondsInHours)
+    func addHours(_ hoursToAdd: Int) -> Date {
+        let secondsInHours: TimeInterval = Double(hoursToAdd) * 60 * 60
+        let dateWithHoursAdded: Date = self.addingTimeInterval(secondsInHours)
         
         //Return Result
         return dateWithHoursAdded

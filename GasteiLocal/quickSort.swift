@@ -8,11 +8,24 @@
 
 import Foundation
 import CloudKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 class QuickSortClass {
     var v = [Int]()
     
-    internal func partition(left: Int, right: Int) -> Int {
+    internal func partition(_ left: Int, right: Int) -> Int {
         var i = left
         for j in (left + 1)..<(right + 1) {
             if v[j] < v[left] {
@@ -24,7 +37,7 @@ class QuickSortClass {
         return i
     }
     
-    internal func quicksort(left: Int, right: Int) {
+    internal func quicksort(_ left: Int, right: Int) {
         if right > left {
             let pivotIndex = partition(left, right: right)
             quicksort(left, right: pivotIndex - 1)
@@ -43,7 +56,7 @@ class QuickSorterGasto {
     var a = [CKReference]()
     var decrescente = false
     
-    func callQuickSort (ordenacao: String, decrescente: Bool) {
+    func callQuickSort (_ ordenacao: String, decrescente: Bool) {
         self.decrescente = decrescente
         if (ordenacao == "Data") {
             quicksortData(0, right: v.count-1)
@@ -58,7 +71,7 @@ class QuickSorterGasto {
         }
     }
     
-    internal func partitionData(left: Int, right: Int) -> Int {
+    internal func partitionData(_ left: Int, right: Int) -> Int {
         var i = left
         for j in (left + 1)..<(right + 1) {
             var precisaTrocar = v[j].date.isLessThanDate(v[left].date)
@@ -71,21 +84,21 @@ class QuickSorterGasto {
             if precisaTrocar {
                 i += 1
                 (v[i], v[j]) = (v[j], v[i])
-                if defaults.boolForKey("Cloud") {
+                if defaults.bool(forKey: "Cloud") {
                     (a[i], a[j]) = (a[j], a[i])
                 }
                 
             }
         }
         (v[i], v[left]) = (v[left], v[i])
-        if defaults.boolForKey("Cloud") {
+        if defaults.bool(forKey: "Cloud") {
 
         (a[i], a[left]) = (a[left], a[i])
         }
         return i
     }
     
-    internal func quicksortData(left: Int, right: Int) {
+    internal func quicksortData(_ left: Int, right: Int) {
         if right > left {
             let pivotIndex = partitionData(left, right: right)
             quicksortData(left, right: pivotIndex - 1)
@@ -93,7 +106,7 @@ class QuickSorterGasto {
         }
     }
     
-    internal func partitionNome(left: Int, right: Int) -> Int {
+    internal func partitionNome(_ left: Int, right: Int) -> Int {
         var i = left
         for j in (left + 1)..<(right + 1) {
             var precisaTrocar = v[j].name < v[left].name
@@ -106,21 +119,21 @@ class QuickSorterGasto {
             if precisaTrocar {
                 i += 1
                 (v[i], v[j]) = (v[j], v[i])
-                if defaults.boolForKey("Cloud") {
+                if defaults.bool(forKey: "Cloud") {
 
                 (a[i], a[j]) = (a[j], a[i])
                 }
             }
         }
         (v[i], v[left]) = (v[left], v[i])
-        if defaults.boolForKey("Cloud") {
+        if defaults.bool(forKey: "Cloud") {
 
         (a[i], a[left]) = (a[left], a[i])
         }
         return i
     }
     
-    internal func quicksortNome(left: Int, right: Int) {
+    internal func quicksortNome(_ left: Int, right: Int) {
         if right > left {
             let pivotIndex = partitionNome(left, right: right)
             quicksortNome(left, right: pivotIndex - 1)
@@ -128,7 +141,7 @@ class QuickSorterGasto {
         }
     }
     
-    internal func partitionValor(left: Int, right: Int) -> Int {
+    internal func partitionValor(_ left: Int, right: Int) -> Int {
         var i = left
         for j in (left + 1)..<(right + 1) {
             var precisaTrocar = v[j].value < v[left].value
@@ -141,21 +154,21 @@ class QuickSorterGasto {
             if precisaTrocar {
                 i += 1
                 (v[i], v[j]) = (v[j], v[i])
-                if defaults.boolForKey("Cloud") {
+                if defaults.bool(forKey: "Cloud") {
 
                 (a[i], a[j]) = (a[j], a[i])
                 }
             }
         }
         (v[i], v[left]) = (v[left], v[i])
-        if defaults.boolForKey("Cloud") {
+        if defaults.bool(forKey: "Cloud") {
 
         (a[i], a[left]) = (a[left], a[i])
         }
         return i
     }
     
-    internal func quicksortValor(left: Int, right: Int) {
+    internal func quicksortValor(_ left: Int, right: Int) {
         if right > left {
             let pivotIndex = partitionValor(left, right: right)
             quicksortValor(left, right: pivotIndex - 1)

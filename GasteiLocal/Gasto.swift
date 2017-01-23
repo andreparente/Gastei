@@ -10,14 +10,14 @@ import Foundation
 
 public var gastosGlobal: [Gasto] = []
 
-public class Gasto: NSObject {
+open class Gasto: NSObject {
     var name : String?
     var value = Double()
-    var date = NSDate() // formato "dd/MM/yyyy"
+    var date = Date() // formato "dd/MM/yyyy"
     var category = String()
     
     // init para gasto em dinheiro
-    init(nome: String, categoria: String, valor: Double, data: NSDate) {
+    init(nome: String, categoria: String, valor: Double, data: Date) {
         self.name = nome
         self.category = categoria
         self.value = valor

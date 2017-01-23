@@ -224,6 +224,7 @@
 				TargetAttributes = {
 					8AF5E3DF1D5124CF006D16A7 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -437,6 +438,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GasteiLocal/GasteiLocal-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -451,6 +453,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.andremachadoparente.GasteiLocal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GasteiLocal/GasteiLocal-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

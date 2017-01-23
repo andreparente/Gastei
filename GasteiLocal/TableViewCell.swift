@@ -17,12 +17,12 @@ class TableViewCell: UITableViewCell {
     @IBOutlet weak var labelSemGastos: UILabel!
     @IBOutlet weak var labelCat: UILabel!
     
-    func hideInfo (status: Bool) {
-        self.labelCat.hidden = status
-        self.labelData.hidden = status
-        self.labelValor.hidden = status
-        self.labelNomeGasto.hidden = status
-        self.labelSemGastos.hidden = !status
+    func hideInfo (_ status: Bool) {
+        self.labelCat.isHidden = status
+        self.labelData.isHidden = status
+        self.labelValor.isHidden = status
+        self.labelNomeGasto.isHidden = status
+        self.labelSemGastos.isHidden = !status
     }
     
 }

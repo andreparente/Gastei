@@ -8,6 +8,30 @@
 //
 import UIKit
 import Charts
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDelegate {
     
@@ -23,9 +47,9 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
     
     var gastos: [Gasto]!
     var total = 0.0
-    var dataNs = NSDate()
-    var dateFormatter = NSDateFormatter()
-    let calendar = NSCalendar.currentCalendar()
+    var dataNs = Date()
+    var dateFormatter = DateFormatter()
+    let calendar = Calendar.current
     var dataString: String!
     var vetorFinal: [Double] = []
     var vetorFinalCat: [String] = []
@@ -54,21 +78,21 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
         
         dataMesTextField.delegate = self
         dataMesTextField.font = UIFont(name: "Tsukushi A Round Gothic", size: 16)
-        pickermesano.hidden = true
+        pickermesano.isHidden = true
         dataMesTextField.inputView = pickermesano
-        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        dateFormatter.dateStyle = DateFormatter.Style.short
         
         
-        calendar.components([.Year , .Month], fromDate: dataNs)
+        (calendar as NSCalendar).components([.year , .month], from: dataNs)
         chartView.delegate = self
         chartView.backgroundColor = UIColor(white: 1, alpha: 0)
         chartView.holeColor = UIColor(white: 1, alpha: 0)
     }
     
     //Funcao para organizar o grafico
-    func organizaVetores(usuario: User) -> ([Double],[String]) {
+    func organizaVetores(_ usuario: User) -> ([Double],[String]) {
         
-        var vetValAux = [Double?](count: userLogged.categories.count,repeatedValue: nil)
+        var vetValAux = [Double?](repeating: nil,count: userLogged.categories.count)
         var vetValAux2: [Double] = []
         var vetCatAux: [String] = []
         for i in 0..<userLogged.categories.count  {
@@ -101,7 +125,7 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
         return (vetValAux2,vetCatAux)
     }
     
-    func existeCategoria(vetor: [String],categoria: String) -> Bool {
+    func existeCategoria(_ vetor: [String],categoria: String) -> Bool {
         
         for auxVet in vetor {
             if(auxVet == categoria) {
@@ -111,7 +135,7 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
         return false
     }
     
-    func organizaVetoresMes(usuario: User, gastosMes: [Gasto]) -> ([Double],[String]) {
+    func organizaVetoresMes(_ usuario: User, gastosMes: [Gasto]) -> ([Double],[String]) {
         
         
         
@@ -145,26 +169,26 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
     
     
     //FUNCAO QUE PRINTA LIMITE
-    func printaLimite(usuario: User) {
+    func printaLimite(_ usuario: User) {
         
         if(usuario.limiteMes == 0) {
             
-            limiteLabel.hidden = true
+            limiteLabel.isHidden = true
         }
         else {
             //NO DATA TEXT OCORRE QUANDO NAO TEM DADOS NO GRAFICO
             chartView.noDataText = "Você não possui nenhum gasto!"
-            chartView.infoTextColor = UIColor.whiteColor()
+            chartView.infoTextColor = UIColor.white
             chartView.infoFont = UIFont(name: "Tsukushi A Round Gothic", size: 16)
             chartView.delegate = self
             chartView.animate(xAxisDuration: 1)
-            totalLabel.hidden = true
+            totalLabel.isHidden = true
         }
     }
     
     
     //FUNCAO QUE SETTA TODO O GRAFICO
-    func setPieChart(dataPoints: [String], values: [Double]) {
+    func setPieChart(_ dataPoints: [String], values: [Double]) {
         
         
         if(values.count == 0) {
@@ -208,29 +232,29 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
             let chartData = PieChartData(xVals: dataPoints, dataSet: chartDataSet)
             chartView.data = chartData
             totalLabel.text = "Total desse mês: R$ "+String(total)
-            totalLabel.hidden = false
+            totalLabel.isHidden = false
         }
         
         
     }
     
     // FUNCAO CHAMADA QUANDO CLICAMOS EM CIMA DE UM PEDACO DA PIZZA
-    func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {
         print("\(entry.value) in \(userLogged.categories[entry.xIndex])")
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if(textField.placeholder == "Escolha o mês e ano") {
             //dataMesDatePicker.hidden = false
-            pickermesano.hidden = false
+            pickermesano.isHidden = false
             return false
         }
         else {
-            pickermesano.hidden = true
+            pickermesano.isHidden = true
         }
         return true
     }
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         //executar = false
         total = 0.0
         
@@ -242,17 +266,17 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
             chartView.clear()
             
             chartView.noDataText = "Você não possui nenhum gasto!"
-            chartView.infoTextColor = UIColor.whiteColor()
+            chartView.infoTextColor = UIColor.white
             chartView.infoFont = UIFont(name: "Tsukushi A Round Gothic", size: 16)
             chartView.delegate = self
             chartView.animate(xAxisDuration: 1)
-            totalLabel.hidden = true
+            totalLabel.isHidden = true
             
         }
         else {
             
-            let year = NSCalendar(identifier: NSCalendarIdentifierGregorian)!.component(.Year, fromDate: NSDate())
-            let month = NSCalendar(identifier: NSCalendarIdentifierGregorian)!.component(.Month, fromDate: NSDate())
+            let year = (Calendar(identifier: Calendar.Identifier.gregorian) as NSCalendar).component(.year, from: Date())
+            let month = (Calendar(identifier: Calendar.Identifier.gregorian) as NSCalendar).component(.month, from: Date())
             
             for gasto in userLogged.getGastosMes(month, ano: year){
                 total = total + gasto.value
@@ -274,8 +298,8 @@ class GraficoViewController: UIViewController,ChartViewDelegate,UITextFieldDeleg
             self.background_image.image = UIImage(named: "background_blue.png")
         }
     }
-    override func viewWillDisappear(animated: Bool) {
-        pickermesano.hidden = true
+    override func viewWillDisappear(_ animated: Bool) {
+        pickermesano.isHidden = true
         dataMesTextField.text = ""
     }
 }

@@ -23,14 +23,14 @@ class LoginCLoudViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         aux8 = 0
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginCLoudViewController().actonNotificationSucessGetID), name: "notificationSucessGetId", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginCLoudViewController().actonNotificationSucessGetID), name: NSNotification.Name(rawValue: "notificationSucessGetId"), object: nil)
     }
     
     
-    @IBAction func loginActino(sender: AnyObject) {
-        defaults.setBool(true, forKey: "Logged")
+    @IBAction func loginActino(_ sender: AnyObject) {
+        defaults.set(true, forKey: "Logged")
     }
     
     func actonNotificationSucessGetID()
@@ -47,10 +47,10 @@ class LoginCLoudViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-    @IBAction func pularLoginAction(sender: UIButton) {
-        defaults.setBool(false, forKey: "Cloud")
-        defaults.setBool(true, forKey: "Logged")
-        self.performSegueWithIdentifier("LoginCloudToMain", sender: self)
+    @IBAction func pularLoginAction(_ sender: UIButton) {
+        defaults.set(false, forKey: "Cloud")
+        defaults.set(true, forKey: "Logged")
+        self.performSegue(withIdentifier: "LoginCloudToMain", sender: self)
     }
     
 }

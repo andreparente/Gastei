@@ -31,11 +31,11 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate{
             self.background_image.image = UIImage(named: "background_red.png")
         }
         
-        let navigationBar = UINavigationBar(frame: CGRectMake(0, 0, self.view.frame.size.width, 53)) // Offset by 20 pixels vertically to take the status bar into account
+        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 53)) // Offset by 20 pixels vertically to take the status bar into account
         
         //navigationBar.backgroundColor = UIColor.blackColor()
         navigationBar.barTintColor = UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 18)!]
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 18)!]
         navigationBar.delegate = self
         
         // Create a navigation item with a title
@@ -43,9 +43,9 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate{
         navigationItem.title = "Configurações"
         
         // Create left and right button for navigation item
-        let leftButton =  UIBarButtonItem(title: "Voltar", style:   UIBarButtonItemStyle.Plain, target: self, action: #selector(SettingsViewController.btn_clicked(_:)))
-        leftButton.tintColor = UIColor.whiteColor()
-        leftButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 15)!], forState: UIControlState.Normal)
+        let leftButton =  UIBarButtonItem(title: "Voltar", style:   UIBarButtonItemStyle.plain, target: self, action: #selector(SettingsViewController.btn_clicked(_:)))
+        leftButton.tintColor = UIColor.white
+        leftButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 15)!], for: UIControlState())
         
         
         
@@ -60,13 +60,13 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate{
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func limite(sender: UIButton) {
+    @IBAction func limite(_ sender: UIButton) {
         
-        let alert=UIAlertController(title:" Seu limite é de R$\(userLogged.getLimiteMes())", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addTextFieldWithConfigurationHandler({ (field) -> Void in
+        let alert=UIAlertController(title:" Seu limite é de R$\(userLogged.getLimiteMes())", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addTextField(configurationHandler: { (field) -> Void in
             field.placeholder = "Novo limite mensal"})
-        alert.addAction(UIAlertAction(title:"Cancelar",style: UIAlertActionStyle.Cancel,handler: nil))
-        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.Default,handler:{ (action) -> Void in
+        alert.addAction(UIAlertAction(title:"Cancelar",style: UIAlertActionStyle.cancel,handler: nil))
+        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.default,handler:{ (action) -> Void in
             let textField = alert.textFields![0] as UITextField
             print("Text field: \(textField.text)")
             userLogged.setLimiteMes(Double(textField.text!)!)
@@ -76,10 +76,10 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate{
         }))
         
         
-        self.presentViewController(alert,animated: true, completion: nil)
+        self.present(alert,animated: true, completion: nil)
     }
     
-    func btn_clicked(sender: UIBarButtonItem) {
+    func btn_clicked(_ sender: UIBarButtonItem) {
         if alteroulim == true
         {
             executar = true
@@ -89,24 +89,24 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate{
             executar = false
         }
         
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func categoria(sender: UIButton) {
-        let alert=UIAlertController(title:"Nova categoria", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addTextFieldWithConfigurationHandler({ (field) -> Void in
+    @IBAction func categoria(_ sender: UIButton) {
+        let alert=UIAlertController(title:"Nova categoria", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addTextField(configurationHandler: { (field) -> Void in
             field.placeholder = "Nome"})
-        alert.addAction(UIAlertAction(title:"Cancelar",style: UIAlertActionStyle.Cancel,handler: nil))
-        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.Default,handler:{ (action) -> Void in
+        alert.addAction(UIAlertAction(title:"Cancelar",style: UIAlertActionStyle.cancel,handler: nil))
+        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.default,handler:{ (action) -> Void in
             let textField = alert.textFields![0] as UITextField
             var naoExiste = true
             
             for categ in (userLogged.categories)
             {
                 if textField.text == categ {
-                    let alert2=UIAlertController(title:"Erro", message: "Categoria já existe.", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert2.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.Cancel,handler: nil))
-                    self.presentViewController(alert2,animated: true, completion: nil)
+                    let alert2=UIAlertController(title:"Erro", message: "Categoria já existe.", preferredStyle: UIAlertControllerStyle.alert)
+                    alert2.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.cancel,handler: nil))
+                    self.present(alert2,animated: true, completion: nil)
                     naoExiste = false
                 }
             }
@@ -117,24 +117,24 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate{
                 userLogged.addCategoriaGasto(textField.text!)
                 
                 //adiciona no userDefaults
-                defaults.setObject(userLogged.categories, forKey: "categories")
+                defaults.set(userLogged.categories, forKey: "categories")
                 
                 // adiciona no cloud
-                dispatch_async(dispatch_get_main_queue(),{
+                DispatchQueue.main.async(execute: {
                     
     //                DAOCloudKit().addCategory(userLogged)
                 })
             }
         }))
         
-        self.presentViewController(alert,animated: true, completion: nil)
+        self.present(alert,animated: true, completion: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "SettingsToMain" {
             
-            let vc = segue.destinationViewController as! UITabBarController
+            let vc = segue.destination as! UITabBarController
             vc.selectedIndex = 1
             
         }

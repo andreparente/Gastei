@@ -19,7 +19,7 @@ class MainViewController: UIViewController,WCSessionDelegate {
     @IBOutlet weak var totaldisponivel: UILabel!
     @IBOutlet weak var totalgastos: UILabel!
     @IBOutlet weak var totalDisponivelMes: UILabel!
-    let app = UIApplication.sharedApplication()
+    let app = UIApplication.shared
     //@IBOutlet weak var RS: UILabel!
     @IBOutlet weak var gastos: UILabel!
     @IBOutlet weak var background_image: UIImageView!
@@ -38,43 +38,43 @@ class MainViewController: UIViewController,WCSessionDelegate {
         act.startAnimating()
         valortotal = 0
         valorTotalMes = 0
-        view.backgroundColor = UIColor.whiteColor()
-        gastei.hidden = true
-        limite.hidden = true
-        totaldisponivel.hidden = true
-        totalgastos.hidden = true
-        settingsbutton.hidden = true
+        view.backgroundColor = UIColor.white
+        gastei.isHidden = true
+        limite.isHidden = true
+        totaldisponivel.isHidden = true
+        totalgastos.isHidden = true
+        settingsbutton.isHidden = true
         //RS.hidden = true
-        gastos.hidden = true
+        gastos.isHidden = true
         //background_image.hidden = true
-        self.tabBarController?.tabBar.hidden = true
+        self.tabBarController?.tabBar.isHidden = true
         userLogged = User(cloudId: "noCloud")
         
         
-        if defaults.objectForKey("categories") == nil {
+        if defaults.object(forKey: "categories") == nil {
             
             //SETANDO PELA PRIMEIRA VEZ AS CATEGORIAS
-            defaults.setObject(userLogged.categories, forKey: "categories")
+            defaults.set(userLogged.categories, forKey: "categories")
 
         } else {
-            userLogged.categories = defaults.objectForKey("categories") as! [String]!
+            userLogged.categories = defaults.object(forKey: "categories") as! [String]!
         }
         
-        if defaults.boolForKey("Cloud") {
+        if defaults.bool(forKey: "Cloud") {
             
      //       DAOCloudKit().fetchCategoriesForUser(userLogged)
    //         DAOCloudKit().fetchGastosFromUser(userLogged)
             
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainViewController.actOnNotificationSuccessLoad), name: "notificationSuccessLoadUser", object: nil)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainViewController.actOnNotificationErrorLoad), name: "notificationErrorLoadUser", object: nil)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainViewController.actOnNotificationErrorInternet), name: "notificationErrorInternet", object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.actOnNotificationSuccessLoad), name: NSNotification.Name(rawValue: "notificationSuccessLoadUser"), object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.actOnNotificationErrorLoad), name: NSNotification.Name(rawValue: "notificationErrorLoadUser"), object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.actOnNotificationErrorInternet), name: NSNotification.Name(rawValue: "notificationErrorInternet"), object: nil)
             
         }
 
         
     }
     
-    func printaLimite(usuario: User) {
+    func printaLimite(_ usuario: User) {
         
         if(userLogged.limiteMes == 0) {
             limite.text = "O limite mensal ainda não foi cadastrado.\nRealize-o nas configurações."
@@ -84,15 +84,15 @@ class MainViewController: UIViewController,WCSessionDelegate {
         }
     }
     
-    @IBAction func botaogastar(sender: UIButton) {
+    @IBAction func botaogastar(_ sender: UIButton) {
         
         if userLogged.previsaoGastosMes(userLogged) > userLogged.limiteMes
         {
-            let alertTime = NSDate().dateByAddingTimeInterval(60)
+            let alertTime = Date().addingTimeInterval(60)
             let notifyAlarm = UILocalNotification()
             
             notifyAlarm.fireDate = alertTime
-            notifyAlarm.timeZone = NSTimeZone.defaultTimeZone()
+            notifyAlarm.timeZone = TimeZone.current
             notifyAlarm.soundName = UILocalNotificationDefaultSoundName
             notifyAlarm.category = "Aviso_Category"
             notifyAlarm.alertTitle = "Cuidado"
@@ -119,15 +119,15 @@ class MainViewController: UIViewController,WCSessionDelegate {
         
     }
     
-    @IBAction func botaosettings(sender: UIButton) {
+    @IBAction func botaosettings(_ sender: UIButton) {
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "MainToSettings" {
             
-            let vc = segue.destinationViewController as! SettingsViewController
-            vc.mainVC = segue.sourceViewController as? MainViewController
+            let vc = segue.destination as! SettingsViewController
+            vc.mainVC = segue.source as? MainViewController
             
             
         }
@@ -140,20 +140,20 @@ class MainViewController: UIViewController,WCSessionDelegate {
     
     func actOnNotificationErrorInternet() {
         
-        let alert=UIAlertController(title:"Erro", message: "Verifique a sua conexão com a internet, erro ao acessar a Cloud.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.Default,handler: nil))
-        self.presentViewController(alert,animated: true, completion: nil)
+        let alert=UIAlertController(title:"Erro", message: "Verifique a sua conexão com a internet, erro ao acessar a Cloud.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.default,handler: nil))
+        self.present(alert,animated: true, completion: nil)
         exit(0)
     }
     
     func actOnNotificationErrorLoad()
     {
-        let alert=UIAlertController(title:"Erro", message: "Favor verificar se está conectado no iCloud.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.Default,handler: nil))
-        self.presentViewController(alert,animated: true, completion: nil)
+        let alert=UIAlertController(title:"Erro", message: "Favor verificar se está conectado no iCloud.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.default,handler: nil))
+        self.present(alert,animated: true, completion: nil)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         gastosGlobal.removeAll()
         var gastosmes:[Gasto]!
@@ -162,21 +162,21 @@ class MainViewController: UIViewController,WCSessionDelegate {
         
         print(executar)
   
-        let calendar = NSCalendar.currentCalendar()
+        let calendar = Calendar.current
         
-        let twoMonthsAgo = calendar.dateByAddingUnit(.Month, value: -2, toDate: NSDate(), options: [])
+        let twoMonthsAgo = (calendar as NSCalendar).date(byAdding: .month, value: -2, to: Date(), options: [])
         
         //PARA PEGAR O PRIMEIRO E ULTIMO DIA DO MES
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
-        let components = calendar.components([.Year, .Month], fromDate: NSDate())
-        let startOfMonth = calendar.dateFromComponents(components)!
-        print(dateFormatter.stringFromDate(startOfMonth))
-        let comps2 = NSDateComponents()
+        let components = (calendar as NSCalendar).components([.year, .month], from: Date())
+        let startOfMonth = calendar.date(from: components)!
+        print(dateFormatter.string(from: startOfMonth))
+        var comps2 = DateComponents()
         comps2.month = 1
         comps2.day = -1
-        let endOfMonth = calendar.dateByAddingComponents(comps2, toDate: startOfMonth, options: [])!
-        print(dateFormatter.stringFromDate(endOfMonth))
+        let endOfMonth = (calendar as NSCalendar).date(byAdding: comps2, to: startOfMonth, options: [])!
+        print(dateFormatter.string(from: endOfMonth))
         
         DAOLocal().loadGastosEspecifico(twoMonthsAgo!, toDate: endOfMonth)
         userLogged.gastos.removeAll()
@@ -200,32 +200,32 @@ class MainViewController: UIViewController,WCSessionDelegate {
         self.valorTotalMes = 0
         self.valortotal = 0
         
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             
             gastosmes = userLogged.getGastosUltimoMês()
-            self.gastei.hidden = false
-            self.limite.hidden = false
-            self.totaldisponivel.hidden = false
-            self.totalgastos.hidden = false
-            self.settingsbutton.hidden = false
-            self.tabBarController?.tabBar.hidden = false
+            self.gastei.isHidden = false
+            self.limite.isHidden = false
+            self.totaldisponivel.isHidden = false
+            self.totalgastos.isHidden = false
+            self.settingsbutton.isHidden = false
+            self.tabBarController?.tabBar.isHidden = false
             //self.RS.hidden = false
-            self.gastos.hidden = false
+            self.gastos.isHidden = false
             //self.background_image.hidden = false
             self.act.stopAnimating()
             self.printaLimite(userLogged)
-            let hoje = NSDate()
-            let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: hoje)
+            let hoje = Date()
+            let components = (Calendar.current as NSCalendar).components([.day, .month, .year], from: hoje)
             let mesAtual = components.month
             let anoAtual = components.year
             
             print("GASTOS MES:::::::::::::::", gastosmes)
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy"
             
             for valor in (gastosmes) {
                 
-                let data = dateFormatter.stringFromDate(valor.date).componentsSeparatedByString("/")
+                let data = dateFormatter.string(from: valor.date as Date).components(separatedBy: "/")
                 self.valortotal += valor.value
                 if(Int(data[1]) == mesAtual && Int(data[2]) == anoAtual) {
                     self.valorTotalMes += valor.value
@@ -279,22 +279,22 @@ class MainViewController: UIViewController,WCSessionDelegate {
                 if (evermelha)
                 {
                     //self.background_image.image = UIImage(named: "background_red.png")
-                    self.gastei.setImage(UIImage(named: "add_red.png"), forState: .Normal)
+                    self.gastei.setImage(UIImage(named: "add_red.png"), for: UIControlState())
                     self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_red.png")!)
                 }
                 if (eazul)
                 {
                     //self.background_image.image = UIImage(named: "background_blue.png")
-                    self.gastei.setImage(UIImage(named: "add_blue.png"), forState: .Normal)
+                    self.gastei.setImage(UIImage(named: "add_blue.png"), for: UIControlState())
                     self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_blue.png")!)
                 }
-                self.totaldisponivel.hidden=false
+                self.totaldisponivel.isHidden=false
             }
             else
             {
-                self.totaldisponivel.hidden=true
+                self.totaldisponivel.isHidden=true
                 //self.background_image.image = UIImage(named: "background_blue.png")
-                self.gastei.setImage(UIImage(named: "add_blue.png"), forState: .Normal)
+                self.gastei.setImage(UIImage(named: "add_blue.png"), for: UIControlState())
                 self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_blue.png")!)
             }
             
@@ -322,9 +322,9 @@ class MainViewController: UIViewController,WCSessionDelegate {
             
             
             if (WCSession.isSupported()) {
-                let session = WCSession.defaultSession()
+                let session = WCSession.default()
                 session.delegate = self
-                session.activateSession()
+                session.activate()
                 session.sendMessage(["categorias":[arrayCategories,arrayValor,total]], replyHandler: {(handler) -> Void in print(handler)}, errorHandler: {(error) -> Void in print(#file,error)})
             }
             else
@@ -361,32 +361,32 @@ class MainViewController: UIViewController,WCSessionDelegate {
         self.valorTotalMes = 0
         self.valortotal = 0
         
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             
             gastosmes = userLogged.getGastosUltimoMês()
-            self.gastei.hidden = false
-            self.limite.hidden = false
-            self.totaldisponivel.hidden = false
-            self.totalgastos.hidden = false
-            self.settingsbutton.hidden = false
-            self.tabBarController?.tabBar.hidden = false
+            self.gastei.isHidden = false
+            self.limite.isHidden = false
+            self.totaldisponivel.isHidden = false
+            self.totalgastos.isHidden = false
+            self.settingsbutton.isHidden = false
+            self.tabBarController?.tabBar.isHidden = false
             //self.RS.hidden = false
-            self.gastos.hidden = false
+            self.gastos.isHidden = false
             //self.background_image.hidden = false
             self.act.stopAnimating()
             self.printaLimite(userLogged)
-            let hoje = NSDate()
-            let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: hoje)
+            let hoje = Date()
+            let components = (Calendar.current as NSCalendar).components([.day, .month, .year], from: hoje)
             let mesAtual = components.month
             let anoAtual = components.year
             
             print("GASTOS MES:::::::::::::::", gastosmes)
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy"
             
             for valor in (gastosmes) {
                 
-                let data = dateFormatter.stringFromDate(valor.date).componentsSeparatedByString("/")
+                let data = dateFormatter.string(from: valor.date as Date).components(separatedBy: "/")
                 self.valortotal += valor.value
                 if(Int(data[1]) == mesAtual && Int(data[2]) == anoAtual) {
                     self.valorTotalMes += valor.value
@@ -440,22 +440,22 @@ class MainViewController: UIViewController,WCSessionDelegate {
                 if (evermelha)
                 {
                     //self.background_image.image = UIImage(named: "background_red.png")
-                    self.gastei.setImage(UIImage(named: "add_red.png"), forState: .Normal)
+                    self.gastei.setImage(UIImage(named: "add_red.png"), for: UIControlState())
                     self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_red.png")!)
                 }
                 if (eazul)
                 {
                     //self.background_image.image = UIImage(named: "background_blue.png")
-                    self.gastei.setImage(UIImage(named: "add_blue.png"), forState: .Normal)
+                    self.gastei.setImage(UIImage(named: "add_blue.png"), for: UIControlState())
                     self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_blue.png")!)
                 }
-                self.totaldisponivel.hidden=false
+                self.totaldisponivel.isHidden=false
             }
             else
             {
-                self.totaldisponivel.hidden=true
+                self.totaldisponivel.isHidden=true
                 //self.background_image.image = UIImage(named: "background_blue.png")
-                self.gastei.setImage(UIImage(named: "add_blue.png"), forState: .Normal)
+                self.gastei.setImage(UIImage(named: "add_blue.png"), for: UIControlState())
                 self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background_blue.png")!)
             }
             
@@ -483,9 +483,9 @@ class MainViewController: UIViewController,WCSessionDelegate {
             
             
             if (WCSession.isSupported()) {
-                let session = WCSession.defaultSession()
+                let session = WCSession.default()
                 session.delegate = self
-                session.activateSession()
+                session.activate()
                 session.sendMessage(["categorias":[arrayCategories,arrayValor,total]], replyHandler: {(handler) -> Void in print(handler)}, errorHandler: {(error) -> Void in print(#file,error)})
             }
             else

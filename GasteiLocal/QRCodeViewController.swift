@@ -24,11 +24,11 @@ class QRCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         messageLabel.text="No QR code is detected"
-        back.setTitle("Voltar", forState: .Normal)
-        back.setTitleColor(UIColor.blueColor(), forState: .Normal)
-        back.frame = CGRectMake(15, 15, 100, 100)
-        back.addTarget(self, action: #selector(QRCodeViewController.pressed(_:)), forControlEvents: .TouchUpInside)
-        let captureDevice=AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        back.setTitle("Voltar", for: UIControlState())
+        back.setTitleColor(UIColor.blue, for: UIControlState())
+        back.frame = CGRect(x: 15, y: 15, width: 100, height: 100)
+        back.addTarget(self, action: #selector(QRCodeViewController.pressed(_:)), for: .touchUpInside)
+        let captureDevice=AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         var input : AnyObject!
         
         do {
@@ -40,28 +40,28 @@ class QRCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
         captureSession?.addInput(input as! AVCaptureInput)
         let captureMetadataOutput = AVCaptureMetadataOutput()
         captureSession?.addOutput(captureMetadataOutput)
-        captureMetadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
+        captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
         captureMetadataOutput.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
         videoPreviewLayer?.frame = view.layer.bounds
         view.layer.addSublayer(videoPreviewLayer!)
         captureSession?.startRunning()
-        view.bringSubviewToFront(messageLabel)
+        view.bringSubview(toFront: messageLabel)
         qrCodeFrameView = UIView()
-        qrCodeFrameView?.layer.borderColor = UIColor.greenColor().CGColor
+        qrCodeFrameView?.layer.borderColor = UIColor.green.cgColor
         qrCodeFrameView?.layer.borderWidth = 2
         
         
         
         
-        let navigationBar = UINavigationBar(frame: CGRectMake(0, 0, self.view.frame.size.width, 53))
+        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 53))
         navigationBar.barTintColor = UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 18)!]
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 18)!]
         navigationBar.delegate = self
-        let leftButton =  UIBarButtonItem(title: "Voltar", style:   UIBarButtonItemStyle.Plain, target: self, action: #selector(QRCodeViewController.pressed(_:)))
-        leftButton.tintColor = UIColor.whiteColor()
-        leftButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 15)!], forState: UIControlState.Normal)
+        let leftButton =  UIBarButtonItem(title: "Voltar", style:   UIBarButtonItemStyle.plain, target: self, action: #selector(QRCodeViewController.pressed(_:)))
+        leftButton.tintColor = UIColor.white
+        leftButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 15)!], for: UIControlState())
         
         
         
@@ -76,22 +76,22 @@ class QRCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
         
         
         view.addSubview(qrCodeFrameView!)
-        view.bringSubviewToFront(qrCodeFrameView!)
+        view.bringSubview(toFront: qrCodeFrameView!)
         view.addSubview(back)
-        view.bringSubviewToFront(back)
+        view.bringSubview(toFront: back)
 
     }
     
-    func pressed(sender: UIButton!) {
-       dismissViewControllerAnimated(true, completion: nil)
+    func pressed(_ sender: UIButton!) {
+       dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Identifica QRCode
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         
         //Ve se o array não é nil e se tem pelo menos um objeto.
         if metadataObjects == nil || metadataObjects.count == 0 {
-            qrCodeFrameView?.frame = CGRectZero
+            qrCodeFrameView?.frame = CGRect.zero
             messageLabel.text = "No QR code is detected"
             return
         }
@@ -101,7 +101,7 @@ class QRCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
         
         if metadataObj.type == AVMetadataObjectTypeQRCode {
             // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds.
-            let barCodeObject = videoPreviewLayer?.transformedMetadataObjectForMetadataObject(metadataObj as AVMetadataMachineReadableCodeObject) as! AVMetadataMachineReadableCodeObject
+            let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj as AVMetadataMachineReadableCodeObject) as! AVMetadataMachineReadableCodeObject
             qrCodeFrameView?.frame = barCodeObject.bounds;
             
             if metadataObj.stringValue != nil  && contglobal==0 {
@@ -115,13 +115,13 @@ class QRCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
                 self.delegate.valortotal = Double(valorfinal)?.roundToPlaces(2)
                 self.delegate.dataQR = datafinalmente
                 
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "dd/MM/yyyy"
-                let datefromstring = dateFormatter.dateFromString(self.delegate.dataQR)
+                let datefromstring = dateFormatter.date(from: self.delegate.dataQR)
                 self.delegate.datePicker.date = datefromstring!
                 
                 self.delegate.valor.text=String(self.delegate.valortotal)
-                dismissViewControllerAnimated(true, completion: nil)
+                dismiss(animated: true, completion: nil)
                 
                 contglobal += 1
                 return
@@ -129,7 +129,7 @@ class QRCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
         }
     }
     // MARK: - Reconhece Link
-    func reconheceUrl(link:String)->(String,String)
+    func reconheceUrl(_ link:String)->(String,String)
     {
         //Vetor de char pra armazenar a url recebida
         let characters=Array(link.characters)
@@ -151,7 +151,7 @@ class QRCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
                 n=j+4
                 while(characters[n] != "&")
                 {
-                    valor.insert(String(characters[n]), atIndex: x)
+                    valor.insert(String(characters[n]), at: x)
                     n += 1;x += 1;
                 }
                 break
@@ -163,7 +163,7 @@ class QRCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
                     z=j+6
                     while(characters[z] != "&")
                     {
-                        datatotal.insert(String(characters[z]), atIndex: w)
+                        datatotal.insert(String(characters[z]), at: w)
                         z += 1;w += 1;
                     }
                 }
@@ -175,7 +175,7 @@ class QRCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
         {
         while(datatotal[j] != "5" && datatotal[j+1] != "4")
         {
-            data.insert(datatotal[j],atIndex: w)
+            data.insert(datatotal[j],at: w)
             j+=1;w+=1
         }
         if data != nil
@@ -205,14 +205,14 @@ class QRCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsDeleg
         return (valorfinalmutavel,datafinal)
     }
     
-    func hexStringtoAscii(hexString : String) -> String {
+    func hexStringtoAscii(_ hexString : String) -> String {
         
         let pattern = "(0x)?([0-9a-f]{2})"
-        let regex = try! NSRegularExpression(pattern: pattern, options: .CaseInsensitive)
+        let regex = try! NSRegularExpression(pattern: pattern, options: .caseInsensitive)
         let nsString = hexString as NSString
-        let matches = regex.matchesInString(hexString, options: [], range: NSMakeRange(0, nsString.length))
+        let matches = regex.matches(in: hexString, options: [], range: NSMakeRange(0, nsString.length))
         let characters = matches.map {
-            Character(UnicodeScalar(UInt32(nsString.substringWithRange($0.rangeAtIndex(2)), radix: 16)!))
+            Character(UnicodeScalar(UInt32(nsString.substring(with: $0.rangeAt(2)), radix: 16)!)!)
         }
         return String(characters)
     }

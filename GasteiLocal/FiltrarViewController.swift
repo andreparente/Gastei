@@ -51,7 +51,7 @@ class FiltrarViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         
         // preenche vetor de categorias e adiciona "Todas"
         self.categorias.append("Todas")
-        self.categorias.appendContentsOf(userLogged.getCategorias())
+        self.categorias.append(contentsOf: userLogged.getCategorias())
         
         // inicialmente, o valor da categoria selecionada eh Todas
         self.categoriaSelecionada = "Todas"
@@ -61,28 +61,28 @@ class FiltrarViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         
         // configurando os valores iniciais dos pickerView de data
         // pega a data de hoje e seus components
-        let dataHoje = NSDate()
-        let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: dataHoje)
+        let dataHoje = Date()
+        var components = (Calendar.current as NSCalendar).components([.day, .month, .year], from: dataHoje)
         // altera o dia pra 1
         components.day = 1
         // pega a data gerada com dia 1
-        let primeiroDiaMes = NSDate().createFromDate(components.day, mes: components.month, ano: components.year)
+        let primeiroDiaMes = Date().createFromDate(components.day, mes: components.month, ano: components.year)
         // altera o pickerDate minimo
         self.pickerDataMin.setDate(primeiroDiaMes, animated: false)
         
-        botaoCancelar.titleLabel!.textColor = UIColor.whiteColor()
-        botaoSalvar.titleLabel!.textColor = UIColor.whiteColor()
+        botaoCancelar.titleLabel!.textColor = UIColor.white
+        botaoSalvar.titleLabel!.textColor = UIColor.white
         textValorMax.delegate = self
         textValorMin.delegate = self
-        textValorMin.keyboardType = .DecimalPad
-        textValorMax.keyboardType = .DecimalPad
+        textValorMin.keyboardType = .decimalPad
+        textValorMax.keyboardType = .decimalPad
     }
     
-    @IBAction func apertouBotaoCancelar(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func apertouBotaoCancelar(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func apertouBotaoSalvar(sender: AnyObject) {
+    @IBAction func apertouBotaoSalvar(_ sender: AnyObject) {
         // filtros de valor minimo e maximo
         DAOLocal().loadGastos()
         print(gastosGlobal)
@@ -110,29 +110,29 @@ class FiltrarViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         delegate.filtrou = true
         // desfaz o segue
         print(gastosGlobal)
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return self.categorias.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return self.categorias[row]
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         categoriaSelecionada = self.categorias[row]
     }
     
     //karina - funcao para deixar a fonte do picker branca
-    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let titleData = categorias[row]
-        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Tsukushi A Round Gothic", size: 15.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Tsukushi A Round Gothic", size: 15.0)!,NSForegroundColorAttributeName:UIColor.white])
         return myTitle
     }
     
@@ -140,7 +140,7 @@ class FiltrarViewController: UIViewController,UIPickerViewDelegate,UIPickerViewD
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         return true
     }

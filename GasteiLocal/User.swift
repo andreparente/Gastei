@@ -8,26 +8,50 @@
 
 import Foundation
 import CloudKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
 
 
 public var userLogged: User!
 public var arrayUserRecords: Array<CKRecord> = []
 
 
-public class User {
+open class User {
     
 
     var cloudId: String!
     var categories: [String] = ["Outros","Alimentação","Transporte"]
     var limiteMes: Double = 0
     var arrayGastos: [CKReference] = []
-    public var gastos: [Gasto] = []
+    open var gastos: [Gasto] = []
     
     
     init(cloudId: String) {
         self.cloudId = cloudId
     }
-    func addCategoriaGasto(categ: String) {
+    func addCategoriaGasto(_ categ: String) {
         self.categories.append(categ)
     }
     
@@ -35,7 +59,7 @@ public class User {
         return self.categories
     }
     
-    func addGasto(gasto: Gasto) {
+    func addGasto(_ gasto: Gasto) {
         self.gastos.append(gasto)
     }
     
@@ -43,7 +67,7 @@ public class User {
         return gastos
     }
     
-    func setLimiteMes(limite: Double) {
+    func setLimiteMes(_ limite: Double) {
         self.limiteMes = limite
     }
     
@@ -56,14 +80,14 @@ public class User {
     
     
     
-    func getGastosMes(mes: Int, ano: Int) -> [Gasto] {
+    func getGastosMes(_ mes: Int, ano: Int) -> [Gasto] {
         // gera o novo vetor
         var gastosMes: [Gasto] = []
         for gasto in self.gastos
         {
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy"
-            let data = dateFormatter.stringFromDate(gasto.date).componentsSeparatedByString("/")
+            let data = dateFormatter.string(from: gasto.date as Date).components(separatedBy: "/")
             // data == [ano, mes, dia]
             let mesGasto = Int(data[1])
             let anoGasto = Int(data[2])
@@ -75,10 +99,10 @@ public class User {
     }
     
     // passando zero retorna os gastos de hoje
-    func getGastosUltimosDias(dias: Int) -> [Gasto] {
+    func getGastosUltimosDias(_ dias: Int) -> [Gasto] {
         // descobre ano, mes e dia atuais
-        let hoje = NSDate()
-        let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: hoje)
+        let hoje = Date()
+        let components = (Calendar.current as NSCalendar).components([.day, .month, .year], from: hoje)
         let mesAtual = components.month
         let anoAtual = components.year
         let diaAtual = components.day
@@ -86,16 +110,16 @@ public class User {
         // gera o novo vetor
         var gastosUltimosDias: [Gasto] = []
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
         
         for gasto in self.gastos {
-            let data = dateFormatter.stringFromDate(gasto.date).componentsSeparatedByString("/")
+            let data = dateFormatter.string(from: gasto.date as Date).components(separatedBy: "/")
             // data == [ano, mes, dia]
             let dia = Int(data[0])
             let mes = Int(data[1])
             let ano = Int(data[2])
-            if (mes == mesAtual && ano == anoAtual && dia >= (diaAtual - dias)) {
+            if (mes! == mesAtual! && ano! == anoAtual! && dia! >= (diaAtual! - dias)) {
                 gastosUltimosDias.append(gasto)
             }
         }
@@ -112,40 +136,40 @@ public class User {
     
     func getGastosUltimoMês() -> [Gasto] {
         // descobre ano e mes atuais
-        let hoje = NSDate()
-        let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: hoje)
+        let hoje = Date()
+        let components = (Calendar.current as NSCalendar).components([.day, .month, .year], from: hoje)
         let diaAtual = components.day
         
         // subtrai 1 pq os dias do mes nao comecam no zero
         
-        return getGastosUltimosDias(diaAtual-1)
+        return getGastosUltimosDias(diaAtual!-1)
     }
     
-    func calculaMediaPorDia(user: User) -> Double {
+    func calculaMediaPorDia(_ user: User) -> Double {
         
         var mediaPorDia: Double!
         
-        let hoje = NSDate()
-        let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: hoje)
+        let hoje = Date()
+        let components = (Calendar.current as NSCalendar).components([.day, .month, .year], from: hoje)
         
-        let dateComponents = NSDateComponents()
+        var dateComponents = DateComponents()
         dateComponents.year = components.year
         dateComponents.month = components.month
         let diaAtual = components.day
         
-        let calendar = NSCalendar.currentCalendar()
-        let date = calendar.dateFromComponents(dateComponents)!
-        let range = calendar.rangeOfUnit(.Day, inUnit: .Month, forDate: date)
+        let calendar = Calendar.current
+        let date = calendar.date(from: dateComponents)!
+        let range = (calendar as NSCalendar).range(of: .day, in: .month, for: date)
         let numDays = range.length
         
-        let numDaysLeft = Double(numDays - diaAtual)
+        let numDaysLeft = Double(numDays - diaAtual!)
         
         mediaPorDia = user.limiteMes/numDaysLeft
         
         return mediaPorDia
     }
     
-    func calculaGastosNoDia(user: User) -> Double {
+    func calculaGastosNoDia(_ user: User) -> Double {
         
         var totNoDia: Double = 0
         
@@ -160,7 +184,7 @@ public class User {
     }
     
     
-    func abaixoDaMedia(user: User) -> Bool {
+    func abaixoDaMedia(_ user: User) -> Bool {
         
         if(calculaMediaPorDia(user) > calculaGastosNoDia(user)) {
             return false
@@ -170,15 +194,15 @@ public class User {
         }
     }
     
-    func previsaoGastosMes(user: User) -> Double {
+    func previsaoGastosMes(_ user: User) -> Double {
         
         var result: Double!
         var gastos: [Gasto]?
         var total: Double = 0
-        let hoje = NSDate()
-        let components = NSCalendar.currentCalendar().components([.Day, .Month, .Year], fromDate: hoje)
+        let hoje = Date()
+        let components = (Calendar.current as NSCalendar).components([.day, .month, .year], from: hoje)
         
-        let dateComponents = NSDateComponents()
+        var dateComponents = DateComponents()
         dateComponents.year = components.year
         dateComponents.month = components.month
         let diaAtual = components.day
@@ -200,15 +224,15 @@ public class User {
             else {
                 if mesAtual == 1 || mesAtual == 3 || mesAtual == 5 || mesAtual == 7 || mesAtual == 8 || mesAtual == 10 || mesAtual == 12
                 {
-                result = total + ((total/Double((diaAtual))) * Double(31 - diaAtual))
+                result = total + ((total/Double((diaAtual)!)) * Double(31 - diaAtual!))
                 }
                 else{
                     if mesAtual == 2
                     {
-                     result = total + ((total/Double((diaAtual))) * Double(28 - diaAtual))
+                     result = total + ((total/Double((diaAtual)!)) * Double(28 - diaAtual!))
                     }
                     else{
-                        result = total + ((total/Double((diaAtual))) * Double(30 - diaAtual))
+                        result = total + ((total/Double((diaAtual)!)) * Double(30 - diaAtual!))
                     }
                 }
                 

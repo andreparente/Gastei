@@ -23,9 +23,9 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
     var dataQR: String!
     
     // variaveis internas para controle de tempo
-    var dataNs = NSDate()
-    let dateFormatter = NSDateFormatter()
-    let calendar = NSCalendar.currentCalendar()
+    var dataNs = Date()
+    let dateFormatter = DateFormatter()
+    let calendar = Calendar.current
     
     // variaveis internas para controle de dados
     var dataStr = String()
@@ -45,11 +45,11 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(GastoManualViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-        let navigationBar = UINavigationBar(frame: CGRectMake(0, 0, self.view.frame.size.width, 53)) // Offset by 20 pixels vertically to take the status bar into account
+        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 53)) // Offset by 20 pixels vertically to take the status bar into account
         
         //navigationBar.backgroundColor = UIColor(red: 105/255, green: 181/255, blue: 120/255, alpha: 0.9)
         navigationBar.barTintColor = UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
-        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 18)!]
+        navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 18)!]
         navigationBar.delegate = self;
         
         // Create a navigation item with a title
@@ -57,9 +57,9 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
         navigationItem.title = "Gasto Manual"
         
         // Create left and right button for navigation item
-        let leftButton =  UIBarButtonItem(title: "Voltar", style:   UIBarButtonItemStyle.Plain, target: self, action:(#selector(GastoManualViewController.btn_clicked(_:))))
-        leftButton.tintColor = UIColor.whiteColor()
-        leftButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 15)!], forState: UIControlState.Normal)
+        let leftButton =  UIBarButtonItem(title: "Voltar", style:   UIBarButtonItemStyle.plain, target: self, action:(#selector(GastoManualViewController.btn_clicked(_:))))
+        leftButton.tintColor = UIColor.white
+        leftButton.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 15)!], for: UIControlState())
         
         // Create two buttons for the navigation item
         navigationItem.leftBarButtonItem = leftButton
@@ -69,7 +69,7 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
         // Make the navigation bar a subview of the current view controller
         self.view.addSubview(navigationBar)
         
-        calendar.components([.Day , .Month , .Year], fromDate: dataNs)
+        (calendar as NSCalendar).components([.day , .month , .year], from: dataNs)
         
         
         categoriaPickerView.delegate = self
@@ -78,29 +78,29 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
         valor.delegate = self
         
         dateFormatter.dateFormat = "dd/MM/yyyy"
-        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
+        dateFormatter.dateStyle = DateFormatter.Style.short
         if valortotal != nil
         {
             valor.text=String(valortotal)
         }
         print(valor.text!)
-        valor.keyboardType = .DecimalPad
+        valor.keyboardType = .decimalPad
         if dataQR != nil
         {
             dataStr = dataQR
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy"
-            let datefromstring = dateFormatter.dateFromString(dataQR)
+            let datefromstring = dateFormatter.date(from: dataQR)
             datePicker.date = datefromstring!
             
         }
         else
         {
-            let components = self.calendar.components([.Day , .Month , .Year], fromDate: self.dataNs)
+            let components = (self.calendar as NSCalendar).components([.day , .month , .year], from: self.dataNs)
             self.dataStr = "\(components.day)/\(components.month)/\(components.year)"
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(GastoManualViewController.actOnNotificationSaveError), name: "notificationSaveError", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(GastoManualViewController.actOnNotificationSaveSuccess), name: "notificationSaveSuccess", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GastoManualViewController.actOnNotificationSaveError), name: NSNotification.Name(rawValue: "notificationSaveError"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GastoManualViewController.actOnNotificationSaveSuccess), name: NSNotification.Name(rawValue: "notificationSaveSuccess"), object: nil)
         
     }
     func dismissKeyboard() {
@@ -109,73 +109,73 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
     }
     func actOnNotificationSaveError()
     {
-        let alert=UIAlertController(title:"Erro", message: "Você não está conectado à internet", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.Default,handler: nil))
-        self.presentViewController(alert,animated: true, completion: nil)
+        let alert=UIAlertController(title:"Erro", message: "Você não está conectado à internet", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.default,handler: nil))
+        self.present(alert,animated: true, completion: nil)
     }
     func  actOnNotificationSaveSuccess() {
        
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
-        let data = dateFormatter.dateFromString(self.dataStr)
+        let data = dateFormatter.date(from: self.dataStr)
         userLogged.addGasto(Gasto(nome: nomeGasto.text!, categoria: self.categoria, valor: (Double(valor.text!)?.roundToPlaces(2))!, data: data!))
         executar = true
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
-    func btn_clicked(sender: UIBarButtonItem) {
+    func btn_clicked(_ sender: UIBarButtonItem) {
         executar = false
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "GastoToMain" {
-            let vc = segue.destinationViewController as! UITabBarController
+            let vc = segue.destination as! UITabBarController
             vc.selectedIndex = 1
         } else if segue.identifier == "GastoManualToQRCode" {
-            let vc = segue.destinationViewController as! QRCodeViewController
+            let vc = segue.destination as! QRCodeViewController
             vc.delegate = self
         }
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.categoria = userLogged.categories[row]
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return (userLogged.categories.count)
         
     }
     
-    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? { //KARINA KARINA KARIAN KARINA
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? { //KARINA KARINA KARIAN KARINA
         let titleData = userLogged.categories[row]
-        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Tsukushi A Round Gothic", size: 15.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Tsukushi A Round Gothic", size: 15.0)!,NSForegroundColorAttributeName:UIColor.white])
         return myTitle
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return (userLogged.categories[row])
         
     }
     
-    func txtFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func txtFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return !(textField.placeholder == "Categoria")
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         return true
     }
     
-    @IBAction func datePickerChanged(sender: AnyObject) {
+    @IBAction func datePickerChanged(_ sender: AnyObject) {
         dataNs = datePicker.date
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy"
-        dataQR = dateFormatter.stringFromDate(dataNs)
+        dataQR = dateFormatter.string(from: dataNs)
        // let dataaux = dataQR.stringByReplacingOccurrencesOfString("/", withString: "/")
 //        let fullNameArr = dataQR.componentsSeparatedByString("/")
 //        var preferredLanguage = NSLocale.preferredLanguages()[0] as String
@@ -193,20 +193,20 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
         dataStr = stringfinal*/
     }
     
-    @IBAction func novacategoria(sender: UIButton) {
+    @IBAction func novacategoria(_ sender: UIButton) {
         
-        let alert=UIAlertController(title:"Nova categoria", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addTextFieldWithConfigurationHandler({ (field) -> Void in
+        let alert=UIAlertController(title:"Nova categoria", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addTextField(configurationHandler: { (field) -> Void in
             field.placeholder = "Nome"})
-        alert.addAction(UIAlertAction(title:"Cancelar",style: UIAlertActionStyle.Cancel,handler: nil))
-        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.Default,handler:{ (action) -> Void in
+        alert.addAction(UIAlertAction(title:"Cancelar",style: UIAlertActionStyle.cancel,handler: nil))
+        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.default,handler:{ (action) -> Void in
             let textField = alert.textFields![0] as UITextField
             var naoExiste = true
             for categ in userLogged.categories             {
                 if textField.text == categ {
-                    let alert2=UIAlertController(title:"Erro", message: "Categoria já existe", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert2.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.Cancel,handler: nil))
-                    self.presentViewController(alert2,animated: true, completion: nil)
+                    let alert2=UIAlertController(title:"Erro", message: "Categoria já existe", preferredStyle: UIAlertControllerStyle.alert)
+                    alert2.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.cancel,handler: nil))
+                    self.present(alert2,animated: true, completion: nil)
                     naoExiste = false
                 }
             }
@@ -216,10 +216,10 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
                 userLogged.addCategoriaGasto(textField.text!)
                 
                 //adiciona no NSUserDefaults
-                defaults.setObject(userLogged.categories, forKey: "categories")
+                defaults.set(userLogged.categories, forKey: "categories")
                 
                 // adiciona no cloud
-                dispatch_async(dispatch_get_main_queue(),{
+                DispatchQueue.main.async(execute: {
                     
                     //            DAOCloudKit().addCategory(userLogged)
                 })
@@ -233,15 +233,15 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
         }))
         executar = false
         
-        self.presentViewController(alert,animated: true, completion: nil)
+        self.present(alert,animated: true, completion: nil)
     }
     
-    @IBAction func apertouBotaoQRCode(sender: AnyObject) {
-        performSegueWithIdentifier("GastoManualToQRCode", sender: self)
+    @IBAction func apertouBotaoQRCode(_ sender: AnyObject) {
+        performSegue(withIdentifier: "GastoManualToQRCode", sender: self)
     }
     
     
-    @IBAction func gasteiAction(sender: AnyObject) {
+    @IBAction func gasteiAction(_ sender: AnyObject) {
         var nome = nomeGasto.text
         let valor2 = valor.text!
         var characters2 = Array(valor2.characters)
@@ -251,20 +251,20 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
         
         // nao pode usar variavel sem verificar se eh nil antes
         if(valorgasto == nil) {
-            let alert = UIAlertController(title: "Aviso", message: "Você não preencheu o valor do gasto", preferredStyle: UIAlertControllerStyle.Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
+            let alert = UIAlertController(title: "Aviso", message: "Você não preencheu o valor do gasto", preferredStyle: UIAlertControllerStyle.alert)
+            let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(alertAction)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         } else if(self.dataStr == "" || self.dataStr.isEmpty) {
-            let alert = UIAlertController(title: "Aviso", message: "Você não preencheu a data", preferredStyle: UIAlertControllerStyle.Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
+            let alert = UIAlertController(title: "Aviso", message: "Você não preencheu a data", preferredStyle: UIAlertControllerStyle.alert)
+            let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(alertAction)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         } else if(categoria == "") {
-            let alert = UIAlertController(title: "Aviso", message: "Você não preencheu a categoria", preferredStyle: UIAlertControllerStyle.Alert)
-            let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
+            let alert = UIAlertController(title: "Aviso", message: "Você não preencheu a categoria", preferredStyle: UIAlertControllerStyle.alert)
+            let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil)
             alert.addAction(alertAction)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.present(alert, animated: true, completion: nil)
         } else {
             
             if(nome == nil || nome!.isEmpty) {
@@ -279,17 +279,17 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
                 }
             }
             
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy"
             print(self.dataStr)
-            let data = dateFormatter.dateFromString(self.dataStr)
+            let data = dateFormatter.date(from: self.dataStr)
             print( "data a ser adicionada!! :::::::::  ",data )
             let gasto = Gasto(nome: nome!, categoria: self.categoria, valor: valorgasto!, data: data!)
             print(gasto.date)
             //     DAOCloudKit().addGasto(gasto,user: userLogged)
             
             DAOLocal().salvarGasto(gasto)
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
             // faz o segue
             var arrayCategories = [String]()
             var arrayValor = [String]()
@@ -301,9 +301,9 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
                 i+=1
             }
             if (WCSession.isSupported()) {
-                let session = WCSession.defaultSession()
+                let session = WCSession.default()
                 session.delegate = self
-                session.activateSession()
+                session.activate()
                 session.sendMessage(["categorias":[arrayCategories,arrayValor]], replyHandler: {(handler) -> Void in print(handler)}, errorHandler: {(error) -> Void in print(#file,error)})
             }
             else

@@ -27,7 +27,7 @@ class OrdenarViewController: UIViewController, UIPickerViewDelegate,UIPickerView
     override func viewDidLoad() {
         super.viewDidLoad()
         // linkando funcao ao switch
-        switchDecrescente.addTarget(self, action: #selector(OrdenarViewController.switchClicked(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        switchDecrescente.addTarget(self, action: #selector(OrdenarViewController.switchClicked(_:)), for: UIControlEvents.touchUpInside)
         // altera switch para o valor atual
         switchDecrescente.setOn(self.decrescente, animated: true)
         
@@ -43,8 +43,8 @@ class OrdenarViewController: UIViewController, UIPickerViewDelegate,UIPickerView
         self.ordenacaoEscolhida = self.ordenacoes[0]
         
         // pinta texto dos botoes
-        botaoCancelar.titleLabel!.textColor = UIColor.whiteColor()
-        botaoSalvar.titleLabel!.textColor = UIColor.whiteColor()
+        botaoCancelar.titleLabel!.textColor = UIColor.white
+        botaoSalvar.titleLabel!.textColor = UIColor.white
         
         view.backgroundColor = UIColor(patternImage: UIImage(named: "background_blue.png")!)
       /*  if (eamarela)
@@ -59,42 +59,42 @@ class OrdenarViewController: UIViewController, UIPickerViewDelegate,UIPickerView
         }
     }
     
-    func switchClicked(sender:UIButton)
+    func switchClicked(_ sender:UIButton)
     {
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             self.decrescente = !self.decrescente
             print (self.decrescente)
         });
     }
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return self.ordenacoes.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return self.ordenacoes[row]
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.ordenacaoEscolhida = self.ordenacoes[row]
     }
     
     //karina - funcao para deixar a fonte do picker branca
-    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let titleData = ordenacoes[row]
-        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Tsukushi A Round Gothic", size: 15.0)!,NSForegroundColorAttributeName:UIColor.whiteColor()])
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Tsukushi A Round Gothic", size: 15.0)!,NSForegroundColorAttributeName:UIColor.white])
         return myTitle
     }
     
-    @IBAction func apertouBotaoCancelar(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func apertouBotaoCancelar(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func apertouBotaoSalvar(sender: AnyObject) {
+    @IBAction func apertouBotaoSalvar(_ sender: AnyObject) {
         gastosGlobal = userLogged.gastos
         let quickSorter = QuickSorterGasto()
         quickSorter.v = gastosGlobal
@@ -107,6 +107,6 @@ class OrdenarViewController: UIViewController, UIPickerViewDelegate,UIPickerView
         // altera os dados da historicoTabela
         
         // desfaz o segue
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

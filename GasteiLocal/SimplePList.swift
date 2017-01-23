@@ -10,10 +10,10 @@ import Foundation
 
 public let plist = SimplePList(plistName: "User")
 
-public class SimplePList {
+open class SimplePList {
     
     var plistName:String
-    private var path:String = ""
+    fileprivate var path:String = ""
     
     init (plistName:String) {
         
@@ -21,19 +21,19 @@ public class SimplePList {
         self.path = getPath(plistName)
     }
     
-    func getPath(plistName:String)->String {
-        return NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String + "/" + plistName + ".plist"
+    func getPath(_ plistName:String)->String {
+        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String + "/" + plistName + ".plist"
     }
     
-    func deleteData(dataToSave:[String:AnyObject]) {
+    func deleteData(_ dataToSave:[String:AnyObject]) {
        let content = dataToSave as NSDictionary
-        content.writeToFile(path, atomically: false)
+        content.write(toFile: path, atomically: false)
     }
     
     
-    func saveData(dataToSave:[String:AnyObject])->Bool {
+    func saveData(_ dataToSave:[String:AnyObject])->Bool {
         let content = dataToSave as NSDictionary
-        let result = content.writeToFile(path, atomically: false)
+        let result = content.write(toFile: path, atomically: false)
         return result
     }
     
