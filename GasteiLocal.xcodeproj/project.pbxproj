@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8A1463D01E367F01000B5EE4 /* Piechart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1463CF1E367F01000B5EE4 /* Piechart.swift */; };
 		8A25EE1E1E36713600116D67 /* ChartsFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A25EE1D1E36713600116D67 /* ChartsFunctions.swift */; };
 		8A25EE261E367AB400116D67 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A25EE251E367AB400116D67 /* MapKit.framework */; };
 		8AF5E3FA1D512556006D16A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AF5E3F81D512556006D16A7 /* LaunchScreen.storyboard */; };
@@ -43,20 +42,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8A1463CB1E367EC4000B5EE4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8A1463C41E367EC4000B5EE4 /* swift-piechart.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3BAFC8A81ABB405E00DAB397;
-			remoteInfo = "swift-piechart";
-		};
-		8A1463CD1E367EC4000B5EE4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8A1463C41E367EC4000B5EE4 /* swift-piechart.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3BAFC8BD1ABB405E00DAB397;
-			remoteInfo = "swift-piechartTests";
-		};
 		9CF8BD5E1E378F1900EF3B45 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9CF8BD581E378F1800EF3B45 /* Charts.xcodeproj */;
@@ -102,8 +87,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8A1463C41E367EC4000B5EE4 /* swift-piechart.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "swift-piechart.xcodeproj"; path = "../../Downloads/swift-piechart-master/swift-piechart.xcodeproj"; sourceTree = "<group>"; };
-		8A1463CF1E367F01000B5EE4 /* Piechart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Piechart.swift; path = "../../../Downloads/swift-piechart-master/swift-piechart/Piechart.swift"; sourceTree = "<group>"; };
 		8A25EE1D1E36713600116D67 /* ChartsFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartsFunctions.swift; sourceTree = "<group>"; };
 		8A25EE251E367AB400116D67 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8AF5E3E01D5124CF006D16A7 /* GasteiLocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GasteiLocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,15 +141,6 @@
 			children = (
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		8A1463C51E367EC4000B5EE4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8A1463CC1E367EC4000B5EE4 /* swift-piechart.app */,
-				8A1463CE1E367EC4000B5EE4 /* swift-piechartTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		8AEE93651E36596100C99D24 /* View */ = {
@@ -245,7 +219,6 @@
 				8AF5E4101D5125B0006D16A7 /* TableViewCell.swift */,
 				8AF5E4141D5125B0006D16A7 /* User.swift */,
 				8A25EE1D1E36713600116D67 /* ChartsFunctions.swift */,
-				8A1463CF1E367F01000B5EE4 /* Piechart.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -282,7 +255,6 @@
 			isa = PBXGroup;
 			children = (
 				9CF8BD581E378F1800EF3B45 /* Charts.xcodeproj */,
-				8A1463C41E367EC4000B5EE4 /* swift-piechart.xcodeproj */,
 				8A25EE251E367AB400116D67 /* MapKit.framework */,
 			);
 			name = Frameworks;
@@ -348,10 +320,6 @@
 					ProductGroup = 9CF8BD591E378F1800EF3B45 /* Products */;
 					ProjectRef = 9CF8BD581E378F1800EF3B45 /* Charts.xcodeproj */;
 				},
-				{
-					ProductGroup = 8A1463C51E367EC4000B5EE4 /* Products */;
-					ProjectRef = 8A1463C41E367EC4000B5EE4 /* swift-piechart.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -361,20 +329,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		8A1463CC1E367EC4000B5EE4 /* swift-piechart.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "swift-piechart.app";
-			remoteRef = 8A1463CB1E367EC4000B5EE4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8A1463CE1E367EC4000B5EE4 /* swift-piechartTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "swift-piechartTests.xctest";
-			remoteRef = 8A1463CD1E367EC4000B5EE4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		9CF8BD5F1E378F1900EF3B45 /* Charts.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -424,7 +378,6 @@
 				8AF5E41E1D5125B0006D16A7 /* HistoricoTabelaViewController.swift in Sources */,
 				8AF5E4211D5125B0006D16A7 /* MainViewController.swift in Sources */,
 				8AF5E4281D5125B0006D16A7 /* TableViewCell.swift in Sources */,
-				8A1463D01E367F01000B5EE4 /* Piechart.swift in Sources */,
 				8AF5E41D1D5125B0006D16A7 /* GraficoViewController.swift in Sources */,
 				8AF5E41B1D5125B0006D16A7 /* Gasto.swift in Sources */,
 				8AF5E4151D5125B0006D16A7 /* AppDelegate.swift in Sources */,
