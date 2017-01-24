@@ -39,6 +39,7 @@
 		8AF5E42C1D5125B0006D16A7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E4141D5125B0006D16A7 /* User.swift */; };
 		8AF5E4331D5127D4006D16A7 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E4311D5127D4006D16A7 /* Model.xcdatamodeld */; };
 		8AF5E4351D51307A006D16A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AF5E4341D51307A006D16A7 /* Assets.xcassets */; };
+		9C7271911E377C610050710F /* DAOCloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7271901E377C610050710F /* DAOCloudKit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -136,6 +137,7 @@
 		8AF5E4141D5125B0006D16A7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		8AF5E4321D5127D4006D16A7 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		8AF5E4341D51307A006D16A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9C7271901E377C610050710F /* DAOCloudKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DAOCloudKit.swift; path = ../../Desktop/DAOCloudKit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +263,7 @@
 		8AF5E4301D512619006D16A7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				9C7271901E377C610050710F /* DAOCloudKit.swift */,
 				8AF5E4341D51307A006D16A7 /* Assets.xcassets */,
 				8AF5E4311D5127D4006D16A7 /* Model.xcdatamodeld */,
 				8AF5E3FD1D5125B0006D16A7 /* AppDelegate.swift */,
@@ -439,6 +442,7 @@
 				8AF5E41A1D5125B0006D16A7 /* Filtros.swift in Sources */,
 				8AF5E4271D5125B0006D16A7 /* SimplePList.swift in Sources */,
 				8AF5E4251D5125B0006D16A7 /* quickSort.swift in Sources */,
+				9C7271911E377C610050710F /* DAOCloudKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
