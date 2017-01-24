@@ -162,7 +162,7 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
         
     }
     
-    func txtFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    private func txtFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return !(textField.placeholder == "Categoria")
     }
     
@@ -288,12 +288,12 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
             if let datafinal = data
             {
             gasto = Gasto(nome: nome!, categoria: self.categoria, valor: valorgasto!, data: datafinal)
-            print(gasto?.date)
+            print(gasto?.date as Any!)
             }
             else
             {
                 gasto = Gasto(nome: nome!, categoria: self.categoria, valor: valorgasto!, data: NSDate() as Date)
-                print(gasto?.date)
+                print(gasto?.date as Any!)
             }
             //     DAOCloudKit().addGasto(gasto,user: userLogged)
             
