@@ -294,7 +294,7 @@
 				TargetAttributes = {
 					8AF5E3DF1D5124CF006D16A7 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = C5676RKFWG;
+						DevelopmentTeam = XBEPC2JPC9;
 						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
@@ -504,7 +504,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = C5676RKFWG;
+				DEVELOPMENT_TEAM = XBEPC2JPC9;
 				INFOPLIST_FILE = GasteiLocal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andremachadoparente.GasteiLocal;
@@ -521,7 +521,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = C5676RKFWG;
+				DEVELOPMENT_TEAM = XBEPC2JPC9;
 				INFOPLIST_FILE = GasteiLocal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";

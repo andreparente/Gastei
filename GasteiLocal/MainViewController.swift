@@ -63,8 +63,8 @@ class MainViewController: UIViewController {
         
         if defaults.bool(forKey: "Cloud") {
             
-     //       DAOCloudKit().fetchCategoriesForUser(userLogged)
-   //         DAOCloudKit().fetchGastosFromUser(userLogged)
+        DAOCloudKit().fetchCategoriesForUser(userLogged)
+        DAOCloudKit().fetchGastosFromUser(userLogged)
             
             NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.actOnNotificationSuccessLoad), name: NSNotification.Name(rawValue: "notificationSuccessLoadUser"), object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(MainViewController.actOnNotificationErrorLoad), name: NSNotification.Name(rawValue: "notificationErrorLoadUser"), object: nil)

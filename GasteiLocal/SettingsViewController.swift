@@ -71,7 +71,7 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate{
             print("Text field: \(textField.text)")
             userLogged.setLimiteMes(Double(textField.text!)!)
             print("LIMITE DO USUARIO USERLOGGED LOCAL::::", userLogged.limiteMes)
-      //      DAOCloudKit().changeLimit(userLogged)
+           DAOCloudKit().changeLimit(userLogged)
             alteroulim = true
         }))
         
@@ -122,7 +122,7 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate{
                 // adiciona no cloud
                 DispatchQueue.main.async(execute: {
                     
-    //                DAOCloudKit().addCategory(userLogged)
+                DAOCloudKit().addCategory(userLogged)
                 })
             }
         }))

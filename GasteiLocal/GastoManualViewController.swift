@@ -221,7 +221,7 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
                 // adiciona no cloud
                 DispatchQueue.main.async(execute: {
                     
-                    //            DAOCloudKit().addCategory(userLogged)
+                DAOCloudKit().addCategory(userLogged)
                 })
                 
                 // atualiza label de categoria
@@ -295,7 +295,7 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
                 gasto = Gasto(nome: nome!, categoria: self.categoria, valor: valorgasto!, data: NSDate() as Date)
                 print(gasto?.date as Any!)
             }
-            //     DAOCloudKit().addGasto(gasto,user: userLogged)
+            DAOCloudKit().addGasto(gasto!,user: userLogged)
             
             DAOLocal().salvarGasto(gasto!)
             dismiss(animated: true, completion: nil)

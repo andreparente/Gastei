@@ -127,8 +127,8 @@ class HistoricoTabelaViewController: UIViewController, UIGestureRecognizerDelega
             cell.labelData.text = dateFormatter.string(from: gastosGlobal[indexPath.row].date as Date)
             
             print(indexPath.row)
-            print(cell.labelCat.text)
-            print(cell.labelValor.text)
+            print(cell.labelCat.text!)
+            print(cell.labelValor.text!)
         }
         else {
             print("entrou no sem gastos!")
@@ -177,7 +177,7 @@ class HistoricoTabelaViewController: UIViewController, UIGestureRecognizerDelega
                let gasto = gastosGlobal[indexPath.row]
                 if let index = userLogged.gastos.index(of: gasto) {
                     
-              //      DAOCloudKit().deleteGasto(userLogged.arrayGastos[index], user: userLogged,index: index)
+                    DAOCloudKit().deleteGasto(userLogged.arrayGastos[index], user: userLogged,index: index)
                     gastosGlobal.remove(at: index)
                     userLogged.gastos.remove(at: index)
                     tableView.reloadData()
@@ -185,7 +185,7 @@ class HistoricoTabelaViewController: UIViewController, UIGestureRecognizerDelega
                 }
             }
             else {
-           //     DAOCloudKit().deleteGasto(userLogged.arrayGastos[indexPath.row], user: userLogged,index: indexPath.row)
+              DAOCloudKit().deleteGasto(userLogged.arrayGastos[indexPath.row], user: userLogged,index: indexPath.row)
                 gastosGlobal.remove(at: indexPath.row)
                 userLogged.gastos = gastosGlobal
                 tableView.reloadData()
