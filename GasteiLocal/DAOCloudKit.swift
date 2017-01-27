@@ -131,7 +131,7 @@ class DAOCloudKit {
         let recordId = CKRecordID(recordName: user.cloudId)
         
         myRecord.setObject(gasto.name as CKRecordValue?, forKey: "name")
-        myRecord.setObject(gasto.date as CKRecordValue?, forKey: "dataNova")
+        myRecord.setObject(gasto.date as CKRecordValue?, forKey: "data")
         myRecord.setObject(gasto.category as CKRecordValue?, forKey: "category")
         myRecord.setObject(gasto.value as CKRecordValue?, forKey: "value")
         let gastoReference = CKReference(recordID: myRecord.recordID, action: .none)
@@ -159,7 +159,6 @@ class DAOCloudKit {
         
         container.privateCloudDatabase.fetch(withRecordID: recordId) { (fetchedRecord,error) in
             
-            print(fetchedRecord!)
             
             if error == nil {
                 
@@ -391,7 +390,7 @@ class DAOCloudKit {
                             for (_, result) in records! {
                                 
                                 userLogged.arrayGastos.append(CKReference(recordID: result.recordID, action: .none))
-                                userLogged.gastos.append(Gasto(nome: result.value(forKey: "name") as! String, categoria: result.value(forKey: "category") as! String, valor: result.value(forKey: "value") as! Double, data: result.value(forKey: "dataNova") as! Date))
+                                userLogged.gastos.append(Gasto(nome: result.value(forKey: "name") as! String, categoria: result.value(forKey: "category") as! String, valor: result.value(forKey: "value") as! Double, data: result.value(forKey: "data") as! Date))
                             }
                             
                             NotificationCenter.default.post(name: Notification.Name(rawValue: "notificationSuccessLoadUser"), object: nil)

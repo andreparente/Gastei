@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8A25EE1E1E36713600116D67 /* ChartsFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A25EE1D1E36713600116D67 /* ChartsFunctions.swift */; };
 		8A25EE261E367AB400116D67 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A25EE251E367AB400116D67 /* MapKit.framework */; };
+		8A9C72841E3BCD2300CE61A6 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A9C72831E3BCD2300CE61A6 /* CloudKit.framework */; };
 		8AF5E3FA1D512556006D16A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AF5E3F81D512556006D16A7 /* LaunchScreen.storyboard */; };
 		8AF5E3FB1D512556006D16A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AF5E3F91D512556006D16A7 /* Main.storyboard */; };
 		8AF5E4151D5125B0006D16A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF5E3FD1D5125B0006D16A7 /* AppDelegate.swift */; };
@@ -87,8 +88,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A1A01201E3BC98A00C79718 /* GasteiLocal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GasteiLocal.entitlements; sourceTree = "<group>"; };
 		8A25EE1D1E36713600116D67 /* ChartsFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartsFunctions.swift; sourceTree = "<group>"; };
 		8A25EE251E367AB400116D67 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8A9C72831E3BCD2300CE61A6 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		8AF5E3E01D5124CF006D16A7 /* GasteiLocal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GasteiLocal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AF5E3F81D512556006D16A7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ../LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8AF5E3F91D512556006D16A7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = ../Main.storyboard; sourceTree = "<group>"; };
@@ -128,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A9C72841E3BCD2300CE61A6 /* CloudKit.framework in Frameworks */,
 				8A25EE261E367AB400116D67 /* MapKit.framework in Frameworks */,
 				9CF8BD641E378F2E00EF3B45 /* Charts.framework in Frameworks */,
 			);
@@ -173,6 +177,7 @@
 		8AF5E3E21D5124CF006D16A7 /* GasteiLocal */ = {
 			isa = PBXGroup;
 			children = (
+				8A1A01201E3BC98A00C79718 /* GasteiLocal.entitlements */,
 				8AF5E42F1D5125F5006D16A7 /* Model */,
 				8AEE93651E36596100C99D24 /* View */,
 				8AF5E42E1D5125D3006D16A7 /* Controller */,
@@ -254,6 +259,7 @@
 		A8DBDF5A59048CDFED527279 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A9C72831E3BCD2300CE61A6 /* CloudKit.framework */,
 				9CF8BD581E378F1800EF3B45 /* Charts.xcodeproj */,
 				8A25EE251E367AB400116D67 /* MapKit.framework */,
 			);
@@ -294,11 +300,17 @@
 				TargetAttributes = {
 					8AF5E3DF1D5124CF006D16A7 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = XBEPC2JPC9;
+						DevelopmentTeam = C5676RKFWG;
 						LastSwiftMigration = 0820;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
 							};
 						};
 					};
@@ -504,7 +516,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = XBEPC2JPC9;
+				CODE_SIGN_ENTITLEMENTS = GasteiLocal/GasteiLocal.entitlements;
+				DEVELOPMENT_TEAM = C5676RKFWG;
 				INFOPLIST_FILE = GasteiLocal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.andremachadoparente.GasteiLocal;
@@ -521,7 +534,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = XBEPC2JPC9;
+				CODE_SIGN_ENTITLEMENTS = GasteiLocal/GasteiLocal.entitlements;
+				DEVELOPMENT_TEAM = C5676RKFWG;
 				INFOPLIST_FILE = GasteiLocal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_LDFLAGS[arch=*]" = "$(inherited)";
