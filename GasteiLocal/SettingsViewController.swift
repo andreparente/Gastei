@@ -122,6 +122,9 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate{
         
         self.present(alert,animated: true, completion: nil)
     }
+    @IBAction func backup(_ sender: UIButton) {
+        DAOLocal().loadGastos()
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
