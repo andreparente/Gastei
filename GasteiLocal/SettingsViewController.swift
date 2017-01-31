@@ -19,15 +19,8 @@ class SettingsViewController: UIViewController, UINavigationBarDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /* view.backgroundColor = UIColor(patternImage: UIImage(named: "background_blue.png")!)
-        if (eamarela)
-        {
-            view.backgroundColor = corAmarela
-        }
- */
         if (evermelha)
         {
-            //view.backgroundColor = UIColor(patternImage: UIImage(named: "background_red.png")!)
             self.background_image.image = UIImage(named: "background_red.png")
         }
         

@@ -41,15 +41,6 @@ class LoginCLoudViewController: UIViewController {
         
         
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     @IBAction func pularLoginAction(_ sender: UIButton) {
         defaults.set(false, forKey: "Cloud")
         defaults.set(true, forKey: "Logged")

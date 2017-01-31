@@ -12,8 +12,7 @@ import NotificationCenter
 public var arrayGastoRecords: Array<CKRecord> = []
 class DAOCloudKit {
     
-    func cloudAvailable()->(Bool)
-    {
+    func cloudAvailable()->(Bool) {
         if FileManager.default.ubiquityIdentityToken != nil{
             return true
         }
@@ -21,7 +20,6 @@ class DAOCloudKit {
             return false
         }
     }
-    
     
     // ------------------------------ FUNCAO PARA PEGAR ID DO USER ---------------------------
     
@@ -63,11 +61,10 @@ class DAOCloudKit {
                 
                 print("Already exists user!!")
                 NotificationCenter.default.post(name: Notification.Name(rawValue: "notificationErrorRegister"), object: nil)
-                
             }
                 
             else {
-                
+            
                 if(fetchedRecord == nil) {
                     
                     print("primeira vez que ta criando")
