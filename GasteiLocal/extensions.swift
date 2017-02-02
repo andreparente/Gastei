@@ -44,3 +44,18 @@ extension Date {
     }
 }
 
+extension String {
+    
+    func hexStringtoAscii() -> String {
+        
+        let pattern = "(0x)?([0-9a-f]{2})"
+        let regex = try! NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+        let nsString = self as NSString
+        let matches = regex.matches(in: self, options: [], range: NSMakeRange(0, nsString.length))
+        let characters = matches.map {
+            Character(UnicodeScalar(UInt32(nsString.substring(with: $0.rangeAt(2)), radix: 16)!)!)
+        }
+        return String(characters)
+    }
+}
+

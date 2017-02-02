@@ -75,85 +75,6 @@ class MainViewController: UIViewController {
         
     }
     
-    func printaLimite(_ usuario: User) {
-        
-        if(userLogged.limiteMes == 0) {
-            limite.text = "O limite mensal ainda não foi cadastrado.\nRealize-o nas configurações."
-        }
-        else {
-            limite.text = "Seu limite mensal é de \n R$ \(usuario.limiteMes)"
-        }
-    }
-    
-    @IBAction func botaogastar(_ sender: UIButton) {
-        
-        if userLogged.previsaoGastosMes(userLogged) > userLogged.limiteMes
-        {
-            let alertTime = Date().addingTimeInterval(60)
-            let notifyAlarm = UILocalNotification()
-            
-            notifyAlarm.fireDate = alertTime
-            notifyAlarm.timeZone = TimeZone.current
-            notifyAlarm.soundName = UILocalNotificationDefaultSoundName
-            notifyAlarm.category = "Aviso_Category"
-            notifyAlarm.alertTitle = "Cuidado"
-            notifyAlarm.alertBody = "Seu limite mensal é R$\(userLogged.limiteMes) e a sua previsão de gastos para o mês é : R$\(userLogged.previsaoGastosMes(userLogged).roundToPlaces(2))"
-            app.scheduleLocalNotification(notifyAlarm)
-        }
-        /* else{
-         if userLogged.abaixoDaMedia(userLogged)
-         {
-         let alertTime = NSDate().dateByAddingTimeInterval(60)
-         
-         let notifyAlarm = UILocalNotification()
-         
-         notifyAlarm.fireDate = alertTime
-         notifyAlarm.timeZone = NSTimeZone.defaultTimeZone()
-         notifyAlarm.soundName = UILocalNotificationDefaultSoundName
-         notifyAlarm.category = "Aviso_Category"
-         notifyAlarm.alertTitle = "Atenção"
-         notifyAlarm.alertBody = "Você está gastando muito hoje.Previsão para o mês: R$\(userLogged.previsaogastosmes(userLogged).roundToPlaces(2)))"
-         app.scheduleLocalNotification(notifyAlarm)
-         }
-         }
-         */
-        
-    }
-    
-    @IBAction func botaosettings(_ sender: UIButton) {
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "MainToSettings" {
-            
-            let vc = segue.destination as! SettingsViewController
-            vc.mainVC = segue.source as? MainViewController
-            
-            
-        }
-    }
-    
-    func actOnNotificationSuccessLoad()
-    {
-        setView()
-    }
-    
-    func actOnNotificationErrorInternet() {
-        
-        let alert=UIAlertController(title:"Erro", message: "Verifique a sua conexão com a internet, erro ao acessar a Cloud.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.default,handler: nil))
-        self.present(alert,animated: true, completion: nil)
-        exit(0)
-    }
-    
-    func actOnNotificationErrorLoad()
-    {
-        let alert=UIAlertController(title:"Erro", message: "Favor verificar se está conectado no iCloud.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.default,handler: nil))
-        self.present(alert,animated: true, completion: nil)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         
         gastosGlobal.removeAll()
@@ -162,7 +83,7 @@ class MainViewController: UIViewController {
         //  setNotification()
         
         print(executar)
-  
+        
         let calendar = Calendar.current
         
         let twoMonthsAgo = (calendar as NSCalendar).date(byAdding: .month, value: -2, to: Date(), options: [])
@@ -193,7 +114,7 @@ class MainViewController: UIViewController {
         
         for gasto in gastosGlobal {
             print(gasto.name!)
-           // print(userLogged.gastos[i].name)
+            // print(userLogged.gastos[i].name)
             i += 1
         }
         
@@ -321,21 +242,111 @@ class MainViewController: UIViewController {
              WCSession.defaultSession().transferUserInfo(item)
              */
             
-         /*
-            if (WCSession.isSupported()) {
-                let session = WCSession.default()
-                session.delegate = self
-                session.activate()
-                session.sendMessage(["categorias":[arrayCategories,arrayValor,total]], replyHandler: {(handler) -> Void in print(handler)}, errorHandler: {(error) -> Void in print(#file,error)})
-            }
-            else
-            {
-                print("Nao está conectado ao watch")
-            }
+            /*
+             if (WCSession.isSupported()) {
+             let session = WCSession.default()
+             session.delegate = self
+             session.activate()
+             session.sendMessage(["categorias":[arrayCategories,arrayValor,total]], replyHandler: {(handler) -> Void in print(handler)}, errorHandler: {(error) -> Void in print(#file,error)})
+             }
+             else
+             {
+             print("Nao está conectado ao watch")
+             }
+             }
+             */
+            
         }
-     */
+    }
+
+ 
+    
+    @IBAction func botaogastar(_ sender: UIButton) {
+        
+        if userLogged.previsaoGastosMes(userLogged) > userLogged.limiteMes
+        {
+            sendNotificationPredictionGreaterThanLimit()
+        }
+        /* else{
+         if userLogged.abaixoDaMedia(userLogged)
+         {
+         let alertTime = NSDate().dateByAddingTimeInterval(60)
+         
+         let notifyAlarm = UILocalNotification()
+         
+         notifyAlarm.fireDate = alertTime
+         notifyAlarm.timeZone = NSTimeZone.defaultTimeZone()
+         notifyAlarm.soundName = UILocalNotificationDefaultSoundName
+         notifyAlarm.category = "Aviso_Category"
+         notifyAlarm.alertTitle = "Atenção"
+         notifyAlarm.alertBody = "Você está gastando muito hoje.Previsão para o mês: R$\(userLogged.previsaogastosmes(userLogged).roundToPlaces(2)))"
+         app.scheduleLocalNotification(notifyAlarm)
+         }
+         }
+         */
         
     }
+    
+    @IBAction func botaosettings(_ sender: UIButton) {
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "MainToSettings" {
+            
+            let vc = segue.destination as! SettingsViewController
+            vc.mainVC = segue.source as? MainViewController
+            
+            
+        }
+    }
+    
+    
+    
+    //MARK:Class Functions
+    
+    func printaLimite(_ usuario: User) {
+        
+        if(userLogged.limiteMes == 0) {
+            limite.text = "O limite mensal ainda não foi cadastrado.\nRealize-o nas configurações."
+        }
+        else {
+            limite.text = "Seu limite mensal é de \n R$ \(usuario.limiteMes)"
+        }
+    }
+    func actOnNotificationSuccessLoad()
+    {
+        setView()
+    }
+    
+    func actOnNotificationErrorInternet() {
+        
+        let alert=UIAlertController(title:"Erro", message: "Verifique a sua conexão com a internet, erro ao acessar a Cloud.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.default,handler: nil))
+        self.present(alert,animated: true, completion: nil)
+        exit(0)
+    }
+    
+    func actOnNotificationErrorLoad()
+    {
+        let alert=UIAlertController(title:"Erro", message: "Favor verificar se está conectado no iCloud.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title:"Ok",style: UIAlertActionStyle.default,handler: nil))
+        self.present(alert,animated: true, completion: nil)
+    }
+    
+    func sendNotificationPredictionGreaterThanLimit() {
+        
+        let alertTime = Date().addingTimeInterval(60)
+        let notifyAlarm = UILocalNotification()
+        
+        notifyAlarm.fireDate = alertTime
+        notifyAlarm.timeZone = TimeZone.current
+        notifyAlarm.soundName = UILocalNotificationDefaultSoundName
+        notifyAlarm.category = "Aviso_Category"
+        notifyAlarm.alertTitle = "Cuidado"
+        notifyAlarm.alertBody = "Seu limite mensal é R$\(userLogged.limiteMes) e a sua previsão de gastos para o mês é : R$\(userLogged.previsaoGastosMes(userLogged).roundToPlaces(2))"
+        app.scheduleLocalNotification(notifyAlarm)
+
     }
     
     func setView() {

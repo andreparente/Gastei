@@ -47,7 +47,7 @@ class GastoManualViewController: UIViewController, UIPickerViewDelegate,UIPicker
         
         let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 53)) // Offset by 20 pixels vertically to take the status bar into account
         
-        //navigationBar.backgroundColor = UIColor(red: 105/255, green: 181/255, blue: 120/255, alpha: 0.9)
+        
         navigationBar.barTintColor = UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 1)
         navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont(name: "Tsukushi A Round Gothic", size: 18)!]
         navigationBar.delegate = self;

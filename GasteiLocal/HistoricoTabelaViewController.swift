@@ -26,9 +26,6 @@ class HistoricoTabelaViewController: UIViewController, UIGestureRecognizerDelega
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = UIColor.clear
-        //executar = false
-        //view.backgroundColor = UIColor(patternImage: UIImage(named: "background_blue.png")!)
-        //viewSuperior.backgroundColor = UIColor(patternImage: UIImage(named: "background_blue.png")!)
         tableView.frame = (CGRect(x: 0,y: 44,width: view.frame.width,height: view.frame.height))
         tableView.estimatedRowHeight = 50
         // apenas para poder enxergar os botoes
@@ -36,27 +33,17 @@ class HistoricoTabelaViewController: UIViewController, UIGestureRecognizerDelega
         self.botaoOrdenar.backgroundColor = UIColor(red: 52/255, green: 52/255, blue: 52/255, alpha: 1)
         self.botaoFiltrar.titleLabel?.textColor = UIColor.white
         self.botaoOrdenar.titleLabel?.textColor = UIColor.white
-        /*   if (eamarela)
-         {
-         view.backgroundColor = corAmarela
-         viewSuperior.backgroundColor = corAmarela
-         }
-         */
-        if (evermelha)
-        {
+       
+        if (evermelha) {
             view.backgroundColor = UIColor(patternImage: UIImage(named: "background_red.png")!)
         }
         if eazul{
             view.backgroundColor = UIColor(patternImage: UIImage(named: "background_blue.png")!)
         }
         
-        
-        
-       // tableView.registerClass(TableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        // executar = false
         
         if(ordenou || filtrou) {
             
@@ -75,15 +62,11 @@ class HistoricoTabelaViewController: UIViewController, UIGestureRecognizerDelega
         self.tableView.reloadData()
         tableView.backgroundColor = UIColor.clear
         
-        if (evermelha)
-        {
-            //self.background_image.image = UIImage(named: "background_red.png")
+        if (evermelha) {
             
             view.backgroundColor = UIColor(patternImage: UIImage(named: "background_red.png")!)
         }
-        if (eazul)
-        {
-            //self.background_image.image = UIImage(named: "background_blue.png")
+        if (eazul) {
             view.backgroundColor = UIColor(patternImage: UIImage(named: "background_blue.png")!)
         }
     }
@@ -109,9 +92,6 @@ class HistoricoTabelaViewController: UIViewController, UIGestureRecognizerDelega
         
         
         cell.backgroundColor = UIColor.clear
-        /*let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        cell.selectedBackgroundView = backgroundView*/
         
         if (cellsNumber > 0) {
             
@@ -123,7 +103,6 @@ class HistoricoTabelaViewController: UIViewController, UIGestureRecognizerDelega
             cell.labelCat.text = "\(gastosGlobal[indexPath.row].category)"
             cell.labelValor.text = "R$ " + String(gastosGlobal[indexPath.row].value)
             
-            //let arrayData = dateFormatter.stringFromDate(gastosGlobal[indexPath.row].date).componentsSeparatedByString("/")
             cell.labelData.text = dateFormatter.string(from: gastosGlobal[indexPath.row].date as Date)
             
             print(indexPath.row)
@@ -169,8 +148,7 @@ class HistoricoTabelaViewController: UIViewController, UIGestureRecognizerDelega
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if userLogged.gastos.count > 0
-        {
+        if userLogged.gastos.count > 0 {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
             // handle delete (by removing the data from your array and updating the tableview)
             if(filtrou) {
@@ -190,9 +168,9 @@ class HistoricoTabelaViewController: UIViewController, UIGestureRecognizerDelega
                 userLogged.gastos = gastosGlobal
                 tableView.reloadData()
                 executar = true
-            }
+                }
             
-        }
+           }
         }
     }
 }

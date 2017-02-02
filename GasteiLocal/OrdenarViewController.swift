@@ -47,20 +47,13 @@ class OrdenarViewController: UIViewController, UIPickerViewDelegate,UIPickerView
         botaoSalvar.titleLabel!.textColor = UIColor.white
         
         view.backgroundColor = UIColor(patternImage: UIImage(named: "background_blue.png")!)
-      /*  if (eamarela)
-        {
-            view.backgroundColor = corAmarela
-        }
- */
-        if (evermelha)
-        {
-            //self.background_image.image = UIImage(named: "background_red.png")
+        
+        if (evermelha) {
             view.backgroundColor = UIColor(patternImage: UIImage(named: "background_red.png")!)
         }
     }
     
-    func switchClicked(_ sender:UIButton)
-    {
+    func switchClicked(_ sender:UIButton) {
         DispatchQueue.main.async(execute: {
             self.decrescente = !self.decrescente
             print (self.decrescente)
